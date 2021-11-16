@@ -1,4 +1,4 @@
-import smbus2
+import smbus
 from time import *
 
 class i2c_device:
