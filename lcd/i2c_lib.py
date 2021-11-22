@@ -1,5 +1,5 @@
 import smbus
-from time import *
+from home import *
 
 class i2c_device:
     def __init__(self, addr, port=1):
