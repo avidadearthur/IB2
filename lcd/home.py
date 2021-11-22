@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.2.3
 #Date And Time Script
 
-from home import sleep, strftime
+from time import sleep, strftime
 from subprocess import *
 import lcddriver
 
