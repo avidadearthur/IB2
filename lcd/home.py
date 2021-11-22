@@ -18,8 +18,16 @@ lcd.lcd_clear()
 def main():
 
     while True:
+        cmdlnInput = input()
+
         lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
         lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
+
+        lcd.lcd_clear()
+
+        if cmdlnInput != '':
+            lcd.lcd_display_string(cmdlnInput, 1)
+
 
         sleep(1)
 
