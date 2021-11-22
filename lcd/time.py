@@ -15,8 +15,15 @@ def run_cmd(cmd):
 
 lcd.lcd_clear()
 
-while True:
-    lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
-    lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
+def main():
 
-    sleep(1)
+    while True:
+        lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
+        lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
+
+        sleep(1)
+
+if __name__ == "__main__":
+    # if you call this script from the command line (the shell) it will
+    # run the 'main' function
+    main()
