@@ -60,13 +60,14 @@ if __name__ == "__main__":
         if "s" not in [th.name for th in threading.enumerate()]:
             s = threading.Thread(target=get_sentence, name="s")
             s.start()
+            s.join()
 
         # thread checking for t
         if "t" not in [th.name for th in threading.enumerate()] and HASINPUT:
 
             HASINPUT = False
             SENTENCE = ''
-            s.join()
+
             print([th.name for th in threading.enumerate()])
 
             print("Starting t thread...")
