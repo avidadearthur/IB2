@@ -62,7 +62,6 @@ if __name__ == "__main__":
         if "t" not in [th.name for th in threading.enumerate()] and HASINPUT:
 
             HASINPUT = False
-            SENTENCE = ''
             s.join()
             print([th.name for th in threading.enumerate()])
 
