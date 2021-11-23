@@ -37,21 +37,20 @@ if __name__ == "__main__":
 
         sleep(1)
 
-        choice = input("Waiting for input: ")
+        sentence = str(input("Enter a sentence: "))
 
         # thread checking
         if "t" not in [th.name for th in threading.enumerate()]:
-            i = int(input("Enter a number: "))
 
-            t = threading.Thread(target=worker, args=(i,), name="t")  # Always put a comma after the arguments. Even if you have only one arg.
+            t = threading.Thread(target=worker, args=(sentence,), name="t")  # Always put a comma after the arguments. Even if you have only one arg.
             t.start()  # Start the thread
 
-        elif choice == "stop":
+        elif sentence == "stop":
                 print("Waiting for the function to finish...")
                 t.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
                 break
 
         else:
-            print(choice)
+            print(sentence)
 
 
