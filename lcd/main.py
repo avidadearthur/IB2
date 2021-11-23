@@ -45,6 +45,7 @@ if __name__ == "__main__":
             lcd.lcd_clear()
             t = threading.Thread(target=worker, args=(sentence,), name="t")  # Always put a comma after the arguments. Even if you have only one arg.
             t.start()  # Start the thread
+            t.join()
 
         if sentence == "stop":
                 print("Waiting for the function to finish...")
