@@ -9,6 +9,7 @@ import threading
 
 def worker(sentence):
     # Do some stuff
+    print("Thread started successfully ")
     lcd.lcd_clear()
     lcd.lcd_display_string(sentence, 1)
     sleep(1)
@@ -41,7 +42,7 @@ if __name__ == "__main__":
 
         # thread checking
         if "t" not in [th.name for th in threading.enumerate()]:
-
+            print("Starting thread...")
             t = threading.Thread(target=worker, args=(sentence,), name="t")  # Always put a comma after the arguments. Even if you have only one arg.
             t.start()  # Start the thread
 
