@@ -7,11 +7,13 @@ import lcddriver
 import threading
 
 
-def worker(num):
+def worker(sentence):
     # Do some stuff
-    for i in range(5):
-        sleep(2)
-        print(2**(num + i))
+    lcd.lcd_clear()
+    lcd.lcd_display_string(sentence, 1)
+    sleep(1)
+    return
+
 
 def run_cmd(cmd):
     p = Popen(cmd, shell = True, stdout = PIPE)
@@ -25,13 +27,9 @@ if __name__ == "__main__":
 
     lcd = lcddriver.lcd()
 
-    i = int(input("Enter a number: "))
-
-    t = threading.Thread(target=worker, args=(i,))  # Always put a comma after the arguments. Even if you have only one arg.
-    t.start() # Start the thread
-
     while True:
 
+        # date & time display
         lcd.lcd_clear()
 
         lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
@@ -41,10 +39,17 @@ if __name__ == "__main__":
 
         choice = input("Waiting for input: ")
 
-        if choice == "stop":
-            print("Waiting for the function to finish...")
-            t.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
-            break
+        # thread checking
+        if "t" not in [th.name for th in threading.enumerate()]:
+            i = int(input("Enter a number: "))
+
+            t = threading.Thread(target=worker, args=(i,), name="t")  # Always put a comma after the arguments. Even if you have only one arg.
+            t.start()  # Start the thread
+
+        elif choice == "stop":
+                print("Waiting for the function to finish...")
+                t.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
+                break
 
         else:
             print(choice)
