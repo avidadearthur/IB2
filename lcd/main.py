@@ -4,13 +4,14 @@
 from time import sleep, strftime
 from subprocess import *
 import lcddriver
+import threading
 
 lcd = lcddriver.lcd()
 
 def worker(num):
     # Do some stuff
     for i in range(5):
-        time.sleep(2)
+        sleep(2)
         print(2**(num + i))
 
 def run_cmd(cmd):
