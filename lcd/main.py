@@ -47,7 +47,7 @@ if __name__ == "__main__":
         if sentence == "stop":
             print("Waiting for the function to finish...")
             t.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
-            clock_thread.join()
+            clock_thread.terminate()
             break
         else:
             print(sentence)
