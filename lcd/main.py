@@ -56,11 +56,12 @@ if __name__ == "__main__":
 
         print([th.name for th in threading.enumerate()])
 
-        if not HASINPUT:
+        # thread checking for s
+        if "s" not in [th.name for th in threading.enumerate()]:
             s = threading.Thread(target=get_sentence, name="s")
             s.start()
 
-        # thread checking
+        # thread checking for t
         if "t" not in [th.name for th in threading.enumerate()] and HASINPUT:
 
             HASINPUT = False
