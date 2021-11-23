@@ -25,14 +25,19 @@ if __name__ == "__main__":
 
     lcd = lcddriver.lcd()
 
-    lcd.lcd_clear()
-
     i = int(input("Enter a number: "))
 
     t = threading.Thread(target=worker, args=(i,))  # Always put a comma after the arguments. Even if you have only one arg.
     t.start() # Start the thread
 
     while True:
+
+        lcd.lcd_clear()
+
+        lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
+        lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
+
+        sleep(1)
 
         choice = input("Waiting for input: ")
 
@@ -44,8 +49,4 @@ if __name__ == "__main__":
         else:
             print(choice)
 
-        lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
-        lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
-
-        sleep(1)
 
