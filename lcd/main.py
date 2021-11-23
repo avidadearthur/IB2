@@ -26,8 +26,10 @@ def get_sentence():
     print("s thread started successfully ")
     print([th.name for th in threading.enumerate()])
     SENTENCE = input("Enter a sentence: ")
-    HASINPUT = True
-    print("Closing t thread... ")
+    print(SENTENCE)
+    if SENTENCE != '':
+        HASINPUT = True
+    print("Closing s thread... ")
     sleep(1)
 
 
@@ -62,6 +64,7 @@ if __name__ == "__main__":
         if "t" not in [th.name for th in threading.enumerate()] and HASINPUT:
 
             HASINPUT = False
+            SENTENCE = ''
             s.join()
             print([th.name for th in threading.enumerate()])
 
