@@ -12,8 +12,8 @@ def worker(sentence):
     print("Thread started successfully ")
     lcd.lcd_clear()
     lcd.lcd_display_string(sentence, 1)
-    sleep(1)
-    return
+    sleep(3)
+    t.join()
 
 
 def run_cmd(cmd):
