@@ -17,7 +17,7 @@ def display_sentence(input_sentence):
 def clock():
     while True:
         # date & time display
-        if "t" not in [th.name for th in threading.enumerate()]:
+        if "sentence" not in [th.name for th in threading.enumerate()]:
             lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
             lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
             sleep(1)
@@ -40,7 +40,7 @@ if __name__ == "__main__":
         print([th.name for th in threading.enumerate()])
 
         # thread checking
-        if "t" not in [th.name for th in threading.enumerate()]:
+        if "sentence" not in [th.name for th in threading.enumerate()]:
             sentence = input("Enter a sentence: ")
             print("Starting thread...")
 
