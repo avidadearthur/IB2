@@ -29,6 +29,7 @@ if __name__ == "__main__":
     lcd = lcddriver.lcd()
 
     clock_thread = threading.Thread(target=clock, name="clock")
+    clock_thread.start()
 
     while True:
 
