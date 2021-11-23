@@ -1,12 +1,11 @@
 #!/usr/bin/env python3.2.3
-#Date And Time Script
+# Date And Time Script
 
 from time import sleep, strftime
 from subprocess import *
 import lcddriver
 import threading
 
-lcd = lcddriver.lcd()
 
 def worker(num):
     # Do some stuff
@@ -19,17 +18,27 @@ def run_cmd(cmd):
     output = p.communicate()[0]
     return output
 
-lcd.lcd_clear()
 
-def main():
+if __name__ == "__main__":
+    # if you call this script from the command line (the shell) it will
+    # run the 'main' function
+
+    lcd = lcddriver.lcd()
+
+    lcd.lcd_clear()
+
+    i = int(input("Enter a number: "))
+
+    t = threading.Thread(target=worker, args=(i,))  # Always put a comma after the arguments. Even if you have only one arg.
+    t.start() # Start the thread
 
     while True:
 
-        choice = input("Wating for input: ")
+        choice = input("Waiting for input: ")
 
         if choice == "stop":
             print("Waiting for the function to finish...")
-            t.join() # Stop the thread (NOTE: the program will wait for the function to finish)
+            t.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
             break
 
         else:
@@ -40,13 +49,3 @@ def main():
 
         sleep(1)
 
-if __name__ == "__main__":
-    # if you call this script from the command line (the shell) it will
-    # run the 'main' function
-
-    i = int(input("Enter a number: "))
-
-    t = threading.Thread(target=worker, args=(i,)) # Always put a comma after the arguments. Even if you have only one arg.
-    t.start() # Start the thread
-
-    main()
