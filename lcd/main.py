@@ -6,7 +6,7 @@ from subprocess import *
 import lcddriver
 import threading
 
-global sentence  # dummy variable
+global sentence
 
 
 # displays sentence
@@ -21,9 +21,10 @@ def worker():
 
 # changes global variable sentence using input
 def get_sentence():
-
-    global sentence
+    print("s thread started successfully ")
+    print([th.name for th in threading.enumerate()])
     sentence = input("Enter a sentence: ")
+    print(sentence)
 
 
 def run_cmd(cmd):
@@ -56,17 +57,18 @@ if __name__ == "__main__":
             print("Starting s thread...")
             s = threading.Thread(target=get_sentence, name="s")
             s.start()
-            s.join()
 
             print("Starting t thread...")
             lcd.lcd_clear()
             t = threading.Thread(target=worker, name="t")  # Always put a comma after the arguments. Even if you have only one arg.
             t.start()  # Start the thread
             t.join()  # Join main thread to avoid competition over display
+            s.join()
 
         if sentence == "stop":
             print("Waiting for all functions to finish...")
             t.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
+            s.join()
             break
         else:
             print("Thread closed")
