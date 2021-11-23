@@ -36,6 +36,8 @@ if __name__ == "__main__":
 
         sleep(1)
 
+        print([th.name for th in threading.enumerate()])
+
         # thread checking
         if "t" not in [th.name for th in threading.enumerate()]:
             sentence = input("Enter a sentence: ")
