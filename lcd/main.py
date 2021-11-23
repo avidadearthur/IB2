@@ -11,6 +11,7 @@ def worker(sentence):
     # Do some stuff
     print("Thread started successfully ")
     lcd.lcd_display_string(sentence, 1)
+    print("Closing thread... ")
     sleep(3)
 
 
@@ -45,13 +46,13 @@ if __name__ == "__main__":
             lcd.lcd_clear()
             t = threading.Thread(target=worker, args=(sentence,), name="t")  # Always put a comma after the arguments. Even if you have only one arg.
             t.start()  # Start the thread
-            t.join()
+            t.join()  # Join main thread to avoid competition over display
 
         if sentence == "stop":
                 print("Waiting for the function to finish...")
                 t.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
                 break
         else:
-            print(sentence)
+            print("Thread closed")
 
 
