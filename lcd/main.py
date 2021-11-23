@@ -17,7 +17,6 @@ def worker(sentence):
 def clock():
     while True:
         # date & time display
-        lcd.lcd_clear()
         lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
         lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
         sleep(1)
@@ -48,6 +47,7 @@ if __name__ == "__main__":
         if sentence == "stop":
             print("Waiting for the function to finish...")
             t.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
+            clock_thread.join()
             break
         else:
             print(sentence)
