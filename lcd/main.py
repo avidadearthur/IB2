@@ -7,7 +7,6 @@ import lcddriver
 import threading
 
 global sentence  # dummy variable
-sentence = ''
 
 
 # displays sentence
@@ -22,6 +21,8 @@ def worker():
 
 # changes global variable sentence using input
 def get_sentence():
+
+    global sentence
     sentence = input("Enter a sentence: ")
 
 
@@ -55,6 +56,7 @@ if __name__ == "__main__":
             print("Starting s thread...")
             s = threading.Thread(target=get_sentence, name="s")
             s.start()
+            s.join()
 
             print("Starting t thread...")
             lcd.lcd_clear()
