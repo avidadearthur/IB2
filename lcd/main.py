@@ -4,6 +4,8 @@ from time import sleep, strftime
 from subprocess import *
 import lcddriver
 import threading
+
+
 def worker(sentence):
     # Do some stuff
     print("Thread started successfully ")
@@ -12,10 +14,6 @@ def worker(sentence):
     sleep(3)
 
 
-def run_cmd(cmd):
-    p = Popen(cmd, shell = True, stdout = PIPE)
-    output = p.communicate()[0]
-    return output
 if __name__ == "__main__":
     # if you call this script from the command line (the shell) it will
     # run the 'main' function
@@ -26,15 +24,17 @@ if __name__ == "__main__":
         lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
         lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
         sleep(1)
+
         print([th.name for th in threading.enumerate()])
+
         # thread checking
         if "t" not in [th.name for th in threading.enumerate()]:
             sentence = input("Enter a sentence: ")
             print("Starting thread...")
+
             lcd.lcd_clear()
             t = threading.Thread(target=worker, args=(sentence,), name="t")  # Always put a comma after the arguments. Even if you have only one arg.
             t.start()  # Start the thread
-            t.join()
             t.join()  # Join main thread to avoid competition over display
 
         if sentence == "stop":
