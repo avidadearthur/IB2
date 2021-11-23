@@ -28,7 +28,7 @@ if __name__ == "__main__":
     # run the 'main' function
     lcd = lcddriver.lcd()
 
-    clock_thread = threading.Thread(target=worker, name="clock")
+    clock_thread = threading.Thread(target=clock, name="clock")
 
     while True:
 
