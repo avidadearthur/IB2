@@ -25,7 +25,7 @@ def worker():
 def get_sentence():
     print("s thread started successfully ")
     print([th.name for th in threading.enumerate()])
-    sentence = input("Enter a sentence: ")
+    SENTENCE = input("Enter a sentence: ")
     HASINPUT = True
     print("Closing t thread... ")
     sleep(1)
