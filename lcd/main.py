@@ -45,11 +45,10 @@ if __name__ == "__main__":
             t = threading.Thread(target=worker, args=(sentence,), name="t")  # Always put a comma after the arguments. Even if you have only one arg.
             t.start()  # Start the thread
 
-        elif sentence == "stop":
+        if sentence == "stop":
                 print("Waiting for the function to finish...")
                 t.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
                 break
-
         else:
             print(sentence)
 
