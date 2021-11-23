@@ -21,6 +21,9 @@ def clock():
             lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
             lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
             sleep(1)
+        if off:
+            break
+
 
 
 if __name__ == "__main__":
@@ -28,6 +31,8 @@ if __name__ == "__main__":
     # run the 'main' function
     lcd = lcddriver.lcd()
 
+    global off
+    off = False
     clock_thread = threading.Thread(target=clock, name="clock")
     clock_thread.start()
 
@@ -48,6 +53,7 @@ if __name__ == "__main__":
         if sentence == "stop":
             print("Waiting for the function to finish...")
             t.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
+            off = True
             break
         else:
             print(sentence)
