@@ -10,6 +10,7 @@ import threading
 def worker(sentence):
     # Do some stuff
     print("Thread started successfully ")
+    print([th.name for th in threading.enumerate()])
     lcd.lcd_display_string(sentence, 1)
     print("Closing thread... ")
     sleep(3)
