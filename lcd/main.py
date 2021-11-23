@@ -1,15 +1,15 @@
 #!/usr/bin/env python3.2.3
 # Date And Time Script
-import sys
+
 from time import sleep, strftime
 import lcddriver
 import threading
 
 
-def worker(sentence):
+def display_sentence(input_sentence):
     # Do some stuff
     print("Thread started successfully ")
-    lcd.lcd_display_string(sentence, 1)
+    lcd.lcd_display_string(input_sentence, 1)
     print("Closing thread... ")
     sleep(3)
 
@@ -23,7 +23,6 @@ def clock():
             sleep(1)
         if off:
             break
-
 
 
 if __name__ == "__main__":
@@ -46,13 +45,16 @@ if __name__ == "__main__":
             print("Starting thread...")
 
             lcd.lcd_clear()
-            t = threading.Thread(target=worker, args=(sentence,), name="t")  # Always put a comma after the arguments. Even if you have only one arg.
-            t.start()  # Start the thread
-            t.join()  # Join main thread to avoid competition over display
+            # Always put a comma after the arguments.
+            # Even if you have only one arg.
+            sentence_display = threading.Thread(target=display_sentence, args=(sentence,), name="sentence")
+            sentence_display.start()  # Start the thread
+            sentence_display.join()  # Join main thread to avoid competition over display
 
         if sentence == "stop":
             print("Waiting for the function to finish...")
-            t.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
+            sentence_display.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
+            # Break the clock thread
             off = True
             break
         else:
