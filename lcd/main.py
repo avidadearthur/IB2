@@ -36,10 +36,9 @@ if __name__ == "__main__":
 
         sleep(1)
 
-        sentence = input("Enter a sentence: ")
-
         # thread checking
         if "t" not in [th.name for th in threading.enumerate()]:
+            sentence = input("Enter a sentence: ")
             print("Starting thread...")
             lcd.lcd_clear()
             t = threading.Thread(target=worker, args=(sentence,), name="t")  # Always put a comma after the arguments. Even if you have only one arg.
