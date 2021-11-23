@@ -14,7 +14,7 @@ if __name__ == "__main__":
     t.start() # Start the thread
 
     while True:
-        choice = input()
+        choice = input("Wating for input: ")
 
         if choice == "stop":
             print("Waiting for the function to finish...")
