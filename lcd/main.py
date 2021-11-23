@@ -6,14 +6,23 @@ from subprocess import *
 import lcddriver
 import threading
 
+global sentence  # dummy variable
+sentence = ''
 
-def worker(sentence):
+
+# displays sentence
+def worker():
     # Do some stuff
-    print("Thread started successfully ")
+    print("t thread started successfully ")
     print([th.name for th in threading.enumerate()])
     lcd.lcd_display_string(sentence, 1)
-    print("Closing thread... ")
+    print("Closing t thread... ")
     sleep(3)
+
+
+# changes global variable sentence using input
+def get_sentence():
+    sentence = input("Enter a sentence: ")
 
 
 def run_cmd(cmd):
@@ -42,18 +51,23 @@ if __name__ == "__main__":
 
         # thread checking
         if "t" not in [th.name for th in threading.enumerate()]:
-            sentence = input("Enter a sentence: ")
-            print("Starting thread...")
+
+            print("Starting s thread...")
+            s = threading.Thread(target=get_sentence, name="s")
+            s.start()
+
+            print("Starting t thread...")
             lcd.lcd_clear()
-            t = threading.Thread(target=worker, args=(sentence,), name="t")  # Always put a comma after the arguments. Even if you have only one arg.
+            t = threading.Thread(target=worker, name="t")  # Always put a comma after the arguments. Even if you have only one arg.
             t.start()  # Start the thread
             t.join()  # Join main thread to avoid competition over display
 
         if sentence == "stop":
-                print("Waiting for the function to finish...")
-                t.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
-                break
+            print("Waiting for all functions to finish...")
+            t.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
+            break
         else:
             print("Thread closed")
+            print([th.name for th in threading.enumerate()])
 
 
