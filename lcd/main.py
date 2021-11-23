@@ -17,9 +17,10 @@ def worker(sentence):
 def clock():
     while True:
         # date & time display
-        lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
-        lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
-        sleep(1)
+        if "t" not in [th.name for th in threading.enumerate()]:
+            lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
+            lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
+            sleep(1)
 
 
 if __name__ == "__main__":
