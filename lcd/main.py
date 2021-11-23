@@ -14,16 +14,23 @@ def worker(sentence):
     sleep(3)
 
 
-if __name__ == "__main__":
-    # if you call this script from the command line (the shell) it will
-    # run the 'main' function
-    lcd = lcddriver.lcd()
+def clock():
     while True:
         # date & time display
         lcd.lcd_clear()
         lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
         lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
         sleep(1)
+
+
+if __name__ == "__main__":
+    # if you call this script from the command line (the shell) it will
+    # run the 'main' function
+    lcd = lcddriver.lcd()
+
+    clock_thread = threading.Thread(target=worker, name="clock")
+
+    while True:
 
         print([th.name for th in threading.enumerate()])
 
