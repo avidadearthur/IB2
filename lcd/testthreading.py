@@ -1,5 +1,9 @@
-import time
+from time import sleep, strftime
+from subprocess import *
+import lcddriver
 import threading
+
+lcd = lcddriver.lcd()
 
 def worker(num):
     # Do some stuff
@@ -23,3 +27,9 @@ if __name__ == "__main__":
 
         else:
             print(choice)
+
+        #clock stuff
+        lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
+        lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
+
+        sleep(1)
