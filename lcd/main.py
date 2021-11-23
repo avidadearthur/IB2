@@ -2,7 +2,6 @@
 # Date And Time Script
 import sys
 from time import sleep, strftime
-from subprocess import *
 import lcddriver
 import threading
 
@@ -28,7 +27,7 @@ if __name__ == "__main__":
     # run the 'main' function
     lcd = lcddriver.lcd()
 
-    clock_thread = threading.Thread(target=clock, name="clock", daemon=True)
+    clock_thread = threading.Thread(target=clock, name="clock")
     clock_thread.start()
 
     while True:
@@ -52,5 +51,3 @@ if __name__ == "__main__":
         else:
             print(sentence)
             print("Thread closed")
-
-    sys.exit(0)
