@@ -1,5 +1,6 @@
 #!/usr/bin/env python3.2.3
 # Date And Time Script
+import sys
 from time import sleep, strftime
 from subprocess import *
 import lcddriver
@@ -27,7 +28,7 @@ if __name__ == "__main__":
     # run the 'main' function
     lcd = lcddriver.lcd()
 
-    clock_thread = threading.Thread(target=clock, name="clock")
+    clock_thread = threading.Thread(target=clock, name="clock", daemon=True)
     clock_thread.start()
 
     while True:
@@ -47,9 +48,9 @@ if __name__ == "__main__":
         if sentence == "stop":
             print("Waiting for the function to finish...")
             t.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
-            clock_thread.terminate()
             break
         else:
             print(sentence)
             print("Thread closed")
 
+    sys.exit(0)
