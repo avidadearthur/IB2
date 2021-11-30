@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.2.3
 # Date And Time Script
 
-from time import sleep, strftime
+from time import sleep, strftime, time
 import lcddriver
 import threading
 import RPi.GPIO as GPIO
@@ -15,7 +15,9 @@ def display_sentence(input_sentence):
 
 
 def clock():
-    i = 0
+    # to be used during testing
+    t_end = time.time() + 30 # add timer for clock loop
+
     while True:
         # date & time display
         if "sentence" not in [th.name for th in threading.enumerate()]:
@@ -25,9 +27,8 @@ def clock():
         if off:
             break
         # avoid infinite loop due to errors
-        if i >= (10 ** 100000):
+        if time.time() > t_end:
             break
-        i += 1
 
 
 if __name__ == "__main__":
@@ -48,7 +49,7 @@ if __name__ == "__main__":
 
     while True:
 
-        print([th.name for th in threading.enumerate()])
+        #print([th.name for th in threading.enumerate()])
 
         if GPIO.input(10) == GPIO.HIGH:
 
