@@ -59,6 +59,4 @@ if __name__ == "__main__":
             # Break the clock thread
             off = True
             break
-        else:
-            print(sentence)
-            print("Thread closed")
+        
