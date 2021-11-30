@@ -38,6 +38,7 @@ if __name__ == "__main__":
     while True:
 
         print([th.name for th in threading.enumerate()])
+        sleep(3)
 
         if keyboard.is_pressed('a'):
 
@@ -59,4 +60,4 @@ if __name__ == "__main__":
             # Break the clock thread
             off = True
             break
-        
+
