@@ -67,6 +67,6 @@ if __name__ == "__main__":
 
         if GPIO.input(8) == GPIO.HIGH:
             print("Waiting for the function to finish...")
-            sentence_display.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
+            #sentence_display.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
             # Break the clock thread
             off = True
