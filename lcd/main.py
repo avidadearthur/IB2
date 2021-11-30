@@ -4,7 +4,7 @@
 from time import sleep, strftime
 import lcddriver
 import threading
-
+import keyboard
 
 def display_sentence(input_sentence):
     # Do some stuff
@@ -39,19 +39,21 @@ if __name__ == "__main__":
 
         print([th.name for th in threading.enumerate()])
 
-        # thread checking
-        if "sentence" not in [th.name for th in threading.enumerate()]:
-            sentence = input("Enter a sentence: ")
-            print("Starting thread...")
+        if keyboard.is_pressed('a'):
 
-            lcd.lcd_clear()
-            # Always put a comma after the arguments.
-            # Even if you have only one arg.
-            sentence_display = threading.Thread(target=display_sentence, args=(sentence,), name="sentence")
-            sentence_display.start()  # Start the thread
-            sentence_display.join()  # Join main thread to avoid competition over display
+            # thread checking
+            if "sentence" not in [th.name for th in threading.enumerate()]:
+                sentence = "'A' Key was pressed"
+                print("Starting thread...")
 
-        if sentence == "stop":
+                lcd.lcd_clear()
+                # Always put a comma after the arguments.
+                # Even if you have only one arg.
+                sentence_display = threading.Thread(target=display_sentence, args=(sentence,), name="sentence")
+                sentence_display.start()  # Start the thread
+                sentence_display.join()  # Join main thread to avoid competition over display
+
+        if keyboard.is_pressed('b'):
             print("Waiting for the function to finish...")
             sentence_display.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
             # Break the clock thread
