@@ -51,6 +51,8 @@ if __name__ == "__main__":
 
         #print([th.name for th in threading.enumerate()])
 
+        # It might be a good idea to block the GPIO once it is pressed
+        # to avoid bugs
         if GPIO.input(10) == GPIO.HIGH:
 
             # thread checking
