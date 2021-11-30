@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.2.3
 # Date And Time Script
 
-from time import sleep, strftime, time
+from time import sleep, strftime
 import lcddriver
 import threading
 import RPi.GPIO as GPIO
