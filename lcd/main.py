@@ -70,3 +70,4 @@ if __name__ == "__main__":
             #sentence_display.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
             # Break the clock thread
             off = True
+            break
