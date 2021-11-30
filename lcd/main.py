@@ -4,7 +4,7 @@
 from time import sleep, strftime
 import lcddriver
 import threading
-import keyboard
+import RPi.GPIO as GPIO
 
 def display_sentence(input_sentence):
     # Do some stuff
@@ -15,6 +15,7 @@ def display_sentence(input_sentence):
 
 
 def clock():
+    i = 0
     while True:
         # date & time display
         if "sentence" not in [th.name for th in threading.enumerate()]:
@@ -23,11 +24,21 @@ def clock():
             sleep(1)
         if off:
             break
+        # avoid infinite loop due to errors
+        if i >= (10 ** 100000):
+            break
+        i += 1
 
 
 if __name__ == "__main__":
     # if you call this script from the command line (the shell) it will
     # run the 'main' function
+
+    GPIO.setwarnings(False) # Ignore warning for now
+    GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
+    GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # Set pin 10 to be an input pin and set initial value to be pulled low (off)
+    GPIO.setup(8, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # Set pin 8 to be an input pin and set initial value to be pulled low (off)
+
     lcd = lcddriver.lcd()
 
     global off
@@ -38,13 +49,12 @@ if __name__ == "__main__":
     while True:
 
         print([th.name for th in threading.enumerate()])
-        sleep(3)
 
-        if keyboard.is_pressed('a'):
+        if GPIO.input(10) == GPIO.HIGH:
 
             # thread checking
             if "sentence" not in [th.name for th in threading.enumerate()]:
-                sentence = "'A' Key was pressed"
+                sentence = "GPIO 10 was set to high"
                 print("Starting thread...")
 
                 lcd.lcd_clear()
@@ -54,10 +64,8 @@ if __name__ == "__main__":
                 sentence_display.start()  # Start the thread
                 sentence_display.join()  # Join main thread to avoid competition over display
 
-        if keyboard.is_pressed('b'):
+        if GPIO.input(8) == GPIO.HIGH:
             print("Waiting for the function to finish...")
             sentence_display.join()  # Stop the thread (NOTE: the program will wait for the function to finish)
             # Break the clock thread
             off = True
-            break
-
