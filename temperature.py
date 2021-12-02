@@ -1,23 +1,31 @@
-# SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
-# SPDX-License-Identifier: MIT
+import Adafruit_GPIO.SPI as SPI
+import Adafruit_MCP3008
+import spidev
+import math
+from time import sleep
 
-import busio
-import digitalio
-import board
-import adafruit_mcp3xxx.mcp3008 as MCP
-from adafruit_mcp3xxx.analog_in import AnalogIn
+## PINOUT BCM ##
+CLK = 23
+MISO = 21
+MOSI = 19
+CS = 24
 
-# create the spi bus
-spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
 
-# create the cs (chip select)
-cs = digitalio.DigitalInOut(board.D5)
+tempChannel = 0
+sleepTime = 1
 
-# create the mcp object
-mcp = MCP.MCP3008(spi, cs)
+mcp = Adafruit_MCP3008.MCP3008(clk=CLK, cs=CS,miso=MISO,mosi=MOSI) 
+#mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(1,0))
+def mcpRead(channel):
+    return mcp.read_adc(channel)
 
-# create an analog input channel on pin 0
-chan = AnalogIn(mcp, MCP.P0)
 
-print("Raw ADC Value: ", chan.value)
-print("ADC Voltage: " + str(chan.voltage) + "V")
+while (1):
+    adc = mcpRead(tempChannel)
+    print(adc)
+    inBeta = 1.0/3950.0
+    inTO = 1.0/298.15
+    k = 1.0/(inTO+inBeta*math.log(1023/adc-1.0))
+    temperature = k-273.15
+    print("Temp: %s"%(temperature))
+    sleep(sleepTime)
