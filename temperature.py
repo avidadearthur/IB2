@@ -1,9 +1,3 @@
-## PINOUT BCM ##
-#CLK = 23
-#MISO = 21
-#MOSI = 19
-#CS = 24
-
 from gpiozero import MCP3008
 from time import sleep
 
