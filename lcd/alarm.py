@@ -17,8 +17,8 @@ def alarm():
 
         lcd.lcd_display_string('Set your alarm: ', 1)
         #lcd.lcd_display_string('%02d:%02d:00'.format(hour, min), 2)
+
         # Stop displaying during SET
-        
         if GPIO.input(11) == GPIO.HIGH:
             break
 
@@ -32,11 +32,13 @@ def clock():
 
     while True:
         
-        # Date & Time display
-        lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
-        lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
+        # Only display if there's no alarm thread
+        if "alarm" not in [th.name for th in threading.enumerate()]:
+            # Date & Time display
+            lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
+            lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
 
-        # Stop displaying during SET
+        # Stop displaying
         if GPIO.input(11) == GPIO.HIGH:
             break
 
