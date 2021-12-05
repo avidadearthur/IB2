@@ -58,4 +58,5 @@ if __name__ == "__main__":
     while True:
         
         if GPIO.input(16) == GPIO.HIGH:
+            print("SET")
             alarm()
