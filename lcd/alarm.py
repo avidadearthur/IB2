@@ -25,7 +25,7 @@ def alarm():
         
         # remove minutes
         if GPIO.input(13) == GPIO.HIGH:
-            if min >= 0:
+            if min > 0:
                 min -= 1
 
         # Stop displaying during SET
