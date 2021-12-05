@@ -69,4 +69,4 @@ if __name__ == "__main__":
 
                 alarm_thread = threading.Thread(target=alarm, name="alarm")
                 alarm_thread.start()  # Start the thread
-                #alarm_thread.join()  # Join main thread to avoid competition over display
+                alarm_thread.join()  # Join main thread to avoid competition over display
