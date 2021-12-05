@@ -18,6 +18,16 @@ def alarm():
         lcd.lcd_display_string('Set your alarm: ', 1)
         lcd.lcd_display_string('{:02d}:{:02d}:00'.format(hour, min), 2)
 
+        # add minutes
+        if GPIO.input(15) == GPIO.HIGH:
+            if min < 59:
+                min += 1
+        
+        # remove minutes
+        if GPIO.input(13) == GPIO.HIGH:
+            if min >= 0:
+                min -= 1
+
         # Stop displaying during SET
         if GPIO.input(11) == GPIO.HIGH:
             break
