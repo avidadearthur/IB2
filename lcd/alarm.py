@@ -16,7 +16,7 @@ def alarm():
     while True:
 
         lcd.lcd_display_string('Set your alarm: ', 1)
-        lcd.lcd_display_string('%02d:%02d:00'.format(hour, min), 2)
+        #lcd.lcd_display_string('%02d:%02d:00'.format(hour, min), 2)
         # Stop displaying during SET
         
         if GPIO.input(11) == GPIO.HIGH:
