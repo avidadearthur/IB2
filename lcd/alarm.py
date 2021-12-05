@@ -14,6 +14,6 @@ GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # RESET GPIO17
 lcd = lcddriver.lcd()
 
 while True:
-    lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
+    lcd.lcd_display_string(strftime('TIME: ' '%H:%M:%S'), 1)
     lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
     sleep(1)
