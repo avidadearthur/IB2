@@ -11,10 +11,12 @@ def alarm():
     # Always start by clearing the LCD
     lcd.lcd_clear()
 
+    hour, min = 0, 0
+
     while True:
 
         lcd.lcd_display_string('Set your alarm: ', 1)
-        lcd.lcd_display_string('%d:%d:00'.format(), 2)
+        lcd.lcd_display_string('%02d:%02d:00'.format(hour, min), 2)
         # Stop displaying during SET
         
         if GPIO.input(11) == GPIO.HIGH:
@@ -62,7 +64,7 @@ if __name__ == "__main__":
             
             # check if there's already an alarm set
             if "alarm" not in [th.name for th in threading.enumerate()]:
-                print("Starting thread...")
+                print("Starting alarm thread...")
                 sleep(1)
 
                 alarm_thread = threading.Thread(target=alarm, name="alarm")
