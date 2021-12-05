@@ -51,12 +51,20 @@ if __name__ == "__main__":
 
     lcd = lcddriver.lcd()
 
-    clock()
-#   clock_thread = threading.Thread(target=clock, name="clock")
-#   clock_thread.start()
+    print("Starting clock thread...")
+    sleep(1)
+    clock_thread = threading.Thread(target=clock, name="clock")
+    clock_thread.start()
 
     while True:
         
         if GPIO.input(16) == GPIO.HIGH:
-            print("SET")
-            alarm()
+            
+            # check if there's already an alarm set
+            if "alarm" not in [th.name for th in threading.enumerate()]:
+                print("Starting thread...")
+                sleep(1)
+
+                alarm_thread = threading.Thread(target=alarm, name="alarm")
+                alarm_thread.start()  # Start the thread
+                #alarm_thread.join()  # Join main thread to avoid competition over display
