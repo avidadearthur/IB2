@@ -8,11 +8,10 @@ import threading
 def alarm():
 
     sleep(1)
+    # Always start by clearing the LCD
+    lcd.lcd_clear()
 
     while True:
-
-        # Always start by clearing the LCD
-        lcd.lcd_clear()
 
         lcd.lcd_display_string('Set your alarm: ', 1)
         lcd.lcd_display_string('%d:%d:00'.format(), 2)
@@ -26,10 +25,10 @@ def alarm():
 def clock():
 
     sleep(1)
+    # Always start by clearing the LCD
+    lcd.lcd_clear()
 
     while True:
-        # Always start by clearing the LCD
-        lcd.lcd_clear()
         
         # Date & Time display
         lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
