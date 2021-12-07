@@ -14,4 +14,4 @@ while True:
     tempK = 1 / (1/(273.15 + 25) + math.log(Rt/9.6)/2880)
     
     tempC = tempK -273.15
-    print ('NTC resistance : %d k, Voltage : %.2f, Temperature : %.2f'%(Rt,voltage,tempC))
+    print ('NTC resistance : %.2f k, Voltage : %.2f, Temperature : %.2f'%(Rt,voltage,tempC))
