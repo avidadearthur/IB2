@@ -10,7 +10,7 @@ while True:
     print(value)
 
     voltage = value * 3.3
-    Rt = value * 3.36
+    Rt = value * 9.6
     tempK = 1 / (1/(273.15 + 25) + math.log(Rt/9.6)/2880)
     
     tempC = tempK -273.15
