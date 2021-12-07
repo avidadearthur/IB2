@@ -6,21 +6,6 @@ ldr = MCP3008(channel=0)
 
 while True:
 
-    
-    # Resitor - 9.6k
-    # NTC     - 3.36k @25C
-    #
-    # T2 = 1/(1/T1 + ln(Rt/R)/B)
-    #
-    # Rt - is the thermistor’s resistance under T2 temperature
-    #
-    # R  - is the nominal resistance under T1 temperature - 9.6k 
-    #
-    # B is the thermal index - 2880k
-    #
-    # T1, T2 is the temperature in Kelvin
-    # We’ll use 25 for T1
-    
     value = ldr.value
     print(value)
 
