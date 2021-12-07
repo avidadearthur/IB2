@@ -24,8 +24,8 @@ while True:
     value = ldr.value
     print(value)
 
-    voltage = ldr.value * 3.3
-    Rt = ldr.value*3.36
+    voltage = value * 3.3
+    Rt = value * 3.36
     tempK = 1 / (1/(273.15 + 25) + math.log(Rt/9.6)/2880)
     
     tempC = tempK -273.15
