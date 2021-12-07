@@ -10,8 +10,8 @@ while True:
     print(value)
 
     voltage = value / 255.0 * 3.3
-    Rt = 10 * voltage / (3.3 - voltage)
-    tempK = 1/(1/(273.15 + 25) + math.log(Rt/10)/3950.0) 
+    Rt = 2.7 * voltage / (3.3 - voltage)
+    tempK = 1/(1/(273.15 + 25) + math.log(Rt/9.6)/3950.0) 
     tempC = tempK -273.15
     print ('ADC Value : %d, Voltage : %.2f, Temperature : %.2f'%(value,voltage,tempC))
     sleep(0.01)
