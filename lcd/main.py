@@ -23,7 +23,15 @@ def alarm():
             
             # Stop displaying
             if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
-                alarm_thread.join()
+                try:
+                    alarm_thread.join()
+                except RuntimeError:
+                    break
+
+                break
+            
+            # RESET button
+            if GPIO.input(11) == GPIO.HIGH:
                 break
     
         except KeyboardInterrupt:
@@ -44,7 +52,15 @@ def sensors():
             
             # Stop displaying
             if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
-                sensors_thread.join()
+                try:
+                    sensors_thread.join()
+                except RuntimeError:
+                    break
+
+                break
+            
+            # RESET button
+            if GPIO.input(11) == GPIO.HIGH:
                 break
     
         except KeyboardInterrupt:
@@ -66,9 +82,17 @@ def clock():
             
             # Stop displaying
             if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
-                clock_thread.join()
+                try:
+                    clock_thread.join()
+                except RuntimeError:
+                    break
+
                 break
-        
+            
+            # RESET button
+            if GPIO.input(11) == GPIO.HIGH:
+                break
+
         except KeyboardInterrupt:
             lcd.lcd_clear()
 
@@ -84,7 +108,6 @@ if __name__ == "__main__":
     GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # RESET GPIO17
 
     lcd = lcddriver.lcd()
-
     # Possible states: 
     # 0 - Clock Date & Time
     # 1 - Sensors Data
