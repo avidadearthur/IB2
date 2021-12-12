@@ -112,6 +112,10 @@ if __name__ == "__main__":
                 print(curr_state)
                 print("Current Threads: ")
                 print([th.name for th in threading.enumerate()])
+            
+            # RESET button
+            if GPIO.input(11) == GPIO.HIGH:
+                break
 
             # 0 - Clock Date & Time
             if abs(curr_state) == 0:
