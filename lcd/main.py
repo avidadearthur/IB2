@@ -107,7 +107,6 @@ if __name__ == "__main__":
                 sleep(1)
                 clock_thread = threading.Thread(target=clock, name="clock")
                 clock_thread.start()
-                clock_thread.join()
             
             # 1 - Sensors Data
             elif abs(curr_state) == 1:
