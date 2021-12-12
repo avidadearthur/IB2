@@ -103,26 +103,33 @@ if __name__ == "__main__":
 
             # 0 - Clock Date & Time
             if abs(curr_state) == 0:
-                print("Starting clock thread...")
-                sleep(1)
-                clock_thread = threading.Thread(target=clock, name="clock")
-                clock_thread.start()
+
+                if "clock" not in [th.name for th in threading.enumerate()]:
+                    print("Starting clock thread...")
+                    sleep(1)
+                    clock_thread = threading.Thread(target=clock, name="clock")
+                    clock_thread.start()
+                    clock_thread.join()
             
             # 1 - Sensors Data
             elif abs(curr_state) == 1:
-                print("Starting sensors thread...")
-                sleep(1)
-                sensors_thread = threading.Thread(target=sensors, name="sensors")
-                sensors_thread.start()
-                sensors_thread.join()
+
+                if "sensors" not in [th.name for th in threading.enumerate()]:
+                    print("Starting Sensors thread...")
+                    sleep(1)
+                    sensors_thread = threading.Thread(target=sensors, name="sensors")
+                    sensors_thread.start()
+                    sensors_thread.join()
             
             # 2 - Alarm Set/Alarm Display
             elif abs(curr_state) == 2:
-                print("Starting alarm thread...")
-                sleep(1)
-                alarm_thread = threading.Thread(target=alarm, name="alarm")
-                alarm_thread.start()
-                alarm_thread.join()
+                
+                if "alarm" not in [th.name for th in threading.enumerate()]:
+                    print("Starting Alarm thread...")
+                    sleep(1)
+                    alarm_thread = threading.Thread(target=alarm, name="alarm")
+                    alarm_thread.start()
+                    alarm_thread.join()
 
     except KeyboardInterrupt:
         lcd.lcd_clear()
