@@ -22,7 +22,7 @@ def alarm():
                     lcd.lcd_display_string('Alarm', 1)
             
             else:
-                sensors_thread.exit()
+                sensors_thread.join()
 
             # Stop displaying
             if GPIO.input(11) == GPIO.HIGH:
@@ -45,7 +45,7 @@ def sensors():
                     lcd.lcd_display_string('Sensors Data', 1)
             
             else:
-                sensors_thread.exit()
+                sensors_thread.join()
             
             # Stop displaying
             if GPIO.input(11) == GPIO.HIGH:
@@ -69,7 +69,7 @@ def clock():
                     lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
             
             else:
-                clock_thread.exit()
+                clock_thread.join()
 
             # Stop displaying
             if GPIO.input(11) == GPIO.HIGH:
