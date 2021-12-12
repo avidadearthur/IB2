@@ -16,7 +16,10 @@ def alarm():
     
     while True:
         try:
-            lcd.lcd_display_string('Alarm', 1)
+            
+            if "clock" not in [th.name for th in threading.enumerate()]:
+                if "sensors" not in [th.name for th in threading.enumerate()]:
+                    lcd.lcd_display_string('Alarm', 1)
 
             # Stop displaying
             if GPIO.input(11) == GPIO.HIGH:
@@ -33,7 +36,10 @@ def sensors():
     
     while True:
         try:
-            lcd.lcd_display_string('Sensors Data', 1)
+            
+            if "clock" not in [th.name for th in threading.enumerate()]:
+                if "alarm" not in [th.name for th in threading.enumerate()]:
+                    lcd.lcd_display_string('Sensors Data', 1)
             
             # Stop displaying
             if GPIO.input(11) == GPIO.HIGH:
@@ -50,10 +56,11 @@ def clock():
 
     while True:
         try:
-            # Date & Time display
-            lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
-            lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
-        
+            if "alarm" not in [th.name for th in threading.enumerate()]:
+                if "sensors" not in [th.name for th in threading.enumerate()]:
+                    # Date & Time display
+                    lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
+                    lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
             # Stop displaying
             if GPIO.input(11) == GPIO.HIGH:
                 break
@@ -89,7 +96,7 @@ if __name__ == "__main__":
                 print([th.name for th in threading.enumerate()])
                 print(curr_state)
                 print("Arrow UP Pressed")
-                if curr_state <= 2:
+                if curr_state + 1 <= 2:
                     curr_state = curr_state + 1
                 else:
                     curr_state = 0
@@ -104,7 +111,7 @@ if __name__ == "__main__":
                 print([th.name for th in threading.enumerate()])
                 print(curr_state)
                 print("Arrow Down Pressed")
-                if curr_state >= 0:
+                if curr_state - 1 >= 0:
                     curr_state = curr_state - 1
                 else:
                     curr_state = 2
