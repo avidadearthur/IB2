@@ -8,6 +8,45 @@ import lcddriver
 import threading
 import RPi.GPIO as GPIO
 
+def alarm():
+    
+    sleep(1)
+    lcd.lcd_clear()
+    
+    try:
+        while True:
+            lcd.lcd_display_string('Alarm', 1)
+    
+    except KeyboardInterrupt:
+        lcd.lcd_clear()
+
+def sensors():
+    
+    sleep(1)
+    lcd.lcd_clear()
+    
+    try:
+        while True:
+            lcd.lcd_display_string('Sensors Data', 1)
+    
+    except KeyboardInterrupt:
+        lcd.lcd_clear()
+
+def clock():
+
+    sleep(1)
+    # Always start by clearing the LCD
+    lcd.lcd_clear()
+
+    try:
+        while True:
+            # Date & Time display
+            lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
+            lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
+    
+    except KeyboardInterrupt:
+        lcd.lcd_clear()
+
 
 if __name__ == "__main__":
     
@@ -46,21 +85,27 @@ if __name__ == "__main__":
 
             # 0 - Clock Date & Time
             if abs(curr_state) == 0:
+                print("Starting clock thread...")
                 sleep(1)
-                lcd.lcd_clear()
-                lcd.lcd_display_string('Clock date & time', 1)
+                clock_thread = threading.Thread(target=clock, name="clock")
+                clock_thread.start()
+                clock_thread.join()
             
             # 1 - Sensors Data
             elif abs(curr_state) == 1:
+                print("Starting sensors thread...")
                 sleep(1)
-                lcd.lcd_clear()
-                lcd.lcd_display_string('Sensors Data', 1)
+                sensors_thread = threading.Thread(target=sensors, name="sensors")
+                sensors_thread.start()
+                sensors_thread.join()
             
             # 2 - Alarm Set/Alarm Display
             elif abs(curr_state) == 2:
+                print("Starting alarm thread...")
                 sleep(1)
-                lcd.lcd_clear()
-                lcd.lcd_display_string('Alarm', 1)
+                alarm_thread = threading.Thread(target=alarm, name="alarm")
+                alarm_thread.start()
+                alarm_thread.join()
 
     except KeyboardInterrupt:
         lcd.lcd_clear()
