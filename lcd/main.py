@@ -20,6 +20,9 @@ def alarm():
             if "clock" not in [th.name for th in threading.enumerate()]:
                 if "sensors" not in [th.name for th in threading.enumerate()]:
                     lcd.lcd_display_string('Alarm', 1)
+            
+            else:
+                sensors_thread.exit()
 
             # Stop displaying
             if GPIO.input(11) == GPIO.HIGH:
@@ -41,6 +44,9 @@ def sensors():
                 if "alarm" not in [th.name for th in threading.enumerate()]:
                     lcd.lcd_display_string('Sensors Data', 1)
             
+            else:
+                sensors_thread.exit()
+            
             # Stop displaying
             if GPIO.input(11) == GPIO.HIGH:
                 break
@@ -61,6 +67,10 @@ def clock():
                     # Date & Time display
                     lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
                     lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
+            
+            else:
+                clock_thread.exit()
+
             # Stop displaying
             if GPIO.input(11) == GPIO.HIGH:
                 break
