@@ -29,14 +29,17 @@ if __name__ == "__main__":
     try:
         curr_state = 0 # Set 0 as default state
         while True:
+            print(curr_state)
             # Use UP and DOWN GPIOs to move between states
             # Arrow UP
             if GPIO.input(15) == GPIO.HIGH:
                 next_state = curr_state + 1
+                curr_state = next_state
 
             # Arrow DOWN
             if GPIO.input(13) == GPIO.HIGH:
                 next_state = curr_state - 1
+                curr_state = next_state
 
             # 0 - Clock Date & Time
             if abs(curr_state) == 0:
