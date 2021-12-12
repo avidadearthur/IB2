@@ -73,17 +73,33 @@ if __name__ == "__main__":
             # Use UP and DOWN GPIOs to move between states
             # Arrow UP
             if GPIO.input(15) == GPIO.HIGH:
+                print("Current Threads: ")
+                print([th.name for th in threading.enumerate()])
+                print(curr_state)
+                print("Arrow UP Pressed")
                 if curr_state <= 2:
                     curr_state = curr_state + 1
                 else:
                     curr_state = 0
+                print("New state: ")
+                print(curr_state)
+                print("Current Threads: ")
+                print([th.name for th in threading.enumerate()])
 
             # Arrow DOWN
             if GPIO.input(13) == GPIO.HIGH:
+                print("Current Threads: ")
+                print([th.name for th in threading.enumerate()])
+                print(curr_state)
+                print("Arrow Down Pressed")
                 if curr_state >= 0:
                     curr_state = curr_state - 1
                 else:
                     curr_state = 2
+                print("New state: ")
+                print(curr_state)
+                print("Current Threads: ")
+                print([th.name for th in threading.enumerate()])
 
             # 0 - Clock Date & Time
             if abs(curr_state) == 0:
