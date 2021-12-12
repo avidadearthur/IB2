@@ -17,6 +17,10 @@ def alarm():
     while True:
         try:
             lcd.lcd_display_string('Alarm', 1)
+
+            # Stop displaying
+            if GPIO.input(11) == GPIO.HIGH:
+                break
     
         except KeyboardInterrupt:
             lcd.lcd_clear()
@@ -30,6 +34,10 @@ def sensors():
     while True:
         try:
             lcd.lcd_display_string('Sensors Data', 1)
+            
+            # Stop displaying
+            if GPIO.input(11) == GPIO.HIGH:
+                break
     
         except KeyboardInterrupt:
             lcd.lcd_clear()
@@ -45,6 +53,10 @@ def clock():
             # Date & Time display
             lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
             lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
+        
+            # Stop displaying
+            if GPIO.input(11) == GPIO.HIGH:
+                break
         
         except KeyboardInterrupt:
             lcd.lcd_clear()
