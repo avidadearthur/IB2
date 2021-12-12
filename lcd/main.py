@@ -22,7 +22,8 @@ def alarm():
                     lcd.lcd_display_string('Alarm', 1)
             
             # Stop displaying
-            if GPIO.input(11) == GPIO.HIGH:
+            if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
+                alarm_thread.join()
                 break
     
         except KeyboardInterrupt:
@@ -42,7 +43,8 @@ def sensors():
                     lcd.lcd_display_string('Sensors Data', 1)
             
             # Stop displaying
-            if GPIO.input(11) == GPIO.HIGH:
+            if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
+                sensors_thread.join()
                 break
     
         except KeyboardInterrupt:
@@ -63,7 +65,8 @@ def clock():
                     lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
             
             # Stop displaying
-            if GPIO.input(11) == GPIO.HIGH:
+            if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
+                clock_thread.join()
                 break
         
         except KeyboardInterrupt:
@@ -93,6 +96,7 @@ if __name__ == "__main__":
             # Use UP and DOWN GPIOs to move between states
             # Arrow UP
             if GPIO.input(15) == GPIO.HIGH:
+                print()
                 print("Current Threads: ")
                 print([th.name for th in threading.enumerate()])
                 print(curr_state)
@@ -107,9 +111,11 @@ if __name__ == "__main__":
                 print(curr_state)
                 print("Current Threads: ")
                 print([th.name for th in threading.enumerate()])
+                print()
 
             # Arrow DOWN
             if GPIO.input(13) == GPIO.HIGH:
+                print()
                 print("Current Threads: ")
                 print([th.name for th in threading.enumerate()])
                 print(curr_state)
@@ -124,6 +130,7 @@ if __name__ == "__main__":
                 print(curr_state)
                 print("Current Threads: ")
                 print([th.name for th in threading.enumerate()])
+                print()
             
             # RESET button
             if GPIO.input(11) == GPIO.HIGH:
@@ -140,8 +147,6 @@ if __name__ == "__main__":
             
             # 1 - Sensors Data
             elif abs(curr_state) == 1:
-
-                #clock_thread.join()
 
                 if "sensors" not in [th.name for th in threading.enumerate()]:
                     print("Starting Sensors thread...")
