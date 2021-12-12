@@ -15,27 +15,23 @@ def alarm():
     
     
     while True:
-        try:
-            
-            if "clock" not in [th.name for th in threading.enumerate()]:
-                if "sensors" not in [th.name for th in threading.enumerate()]:
-                    lcd.lcd_display_string('Alarm', 1)
-            
-            # Stop displaying
-            if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
-                try:
-                    alarm_thread.join()
-                except RuntimeError:
-                    break
 
+        if "clock" not in [th.name for th in threading.enumerate()]:
+            if "sensors" not in [th.name for th in threading.enumerate()]:
+                lcd.lcd_display_string('Alarm', 1)
+
+        # Stop displaying
+        if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
+            try:
+                alarm_thread.join()
+            except RuntimeError:
                 break
+
+            break
             
-            # RESET button
-            if GPIO.input(11) == GPIO.HIGH:
-                break
-    
-        except KeyboardInterrupt:
-            lcd.lcd_clear()
+        # RESET button
+        if GPIO.input(11) == GPIO.HIGH:
+            break
 
 def sensors():
     
@@ -44,27 +40,24 @@ def sensors():
     
     
     while True:
-        try:
-            
-            if "clock" not in [th.name for th in threading.enumerate()]:
-                if "alarm" not in [th.name for th in threading.enumerate()]:
-                    lcd.lcd_display_string('Sensors Data', 1)
-            
-            # Stop displaying
-            if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
-                try:
-                    sensors_thread.join()
-                except RuntimeError:
-                    break
 
-                break
+        if "clock" not in [th.name for th in threading.enumerate()]:
+            if "alarm" not in [th.name for th in threading.enumerate()]:
+                lcd.lcd_display_string('Sensors Data', 1)
             
-            # RESET button
-            if GPIO.input(11) == GPIO.HIGH:
+        # Stop displaying
+        if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
+            try:
+                sensors_thread.join()
+            except RuntimeError:
                 break
+
+            break
+            
+        # RESET button
+        if GPIO.input(11) == GPIO.HIGH:
+            break
     
-        except KeyboardInterrupt:
-            lcd.lcd_clear()
 
 def clock():
 
@@ -73,28 +66,26 @@ def clock():
     lcd.lcd_clear()
 
     while True:
-        try:
-            if "alarm" not in [th.name for th in threading.enumerate()]:
-                if "sensors" not in [th.name for th in threading.enumerate()]:
-                    # Date & Time display
-                    lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
-                    lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
-            
-            # Stop displaying
-            if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
-                try:
-                    clock_thread.join()
-                except RuntimeError:
-                    break
 
-                break
+        if "alarm" not in [th.name for th in threading.enumerate()]:
+            if "sensors" not in [th.name for th in threading.enumerate()]:
+                # Date & Time display
+                lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
+                lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
             
-            # RESET button
-            if GPIO.input(11) == GPIO.HIGH:
+        # Stop displaying
+        if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
+            try:
+                clock_thread.join()
+            except RuntimeError:
                 break
 
-        except KeyboardInterrupt:
-            lcd.lcd_clear()
+            break
+            
+        # RESET button
+        if GPIO.input(11) == GPIO.HIGH:
+            break
+
 
 
 if __name__ == "__main__":
