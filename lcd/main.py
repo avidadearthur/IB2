@@ -29,7 +29,6 @@ if __name__ == "__main__":
     try:
         curr_state = 0 # Set 0 as default state
         while True:
-            print(curr_state)
             # Use UP and DOWN GPIOs to move between states
             # Arrow UP
             if GPIO.input(15) == GPIO.HIGH:
@@ -47,14 +46,20 @@ if __name__ == "__main__":
 
             # 0 - Clock Date & Time
             if abs(curr_state) == 0:
+                sleep(1)
+                lcd.lcd_clear()
                 lcd.lcd_display_string('Clock date & time', 1)
             
             # 1 - Sensors Data
             elif abs(curr_state) == 1:
+                sleep(1)
+                lcd.lcd_clear()
                 lcd.lcd_display_string('Sensors Data', 1)
             
             # 2 - Alarm Set/Alarm Display
             elif abs(curr_state) == 2:
+                sleep(1)
+                lcd.lcd_clear()
                 lcd.lcd_display_string('Alarm', 1)
 
     except KeyboardInterrupt:
