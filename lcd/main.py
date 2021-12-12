@@ -104,84 +104,81 @@ if __name__ == "__main__":
     # 1 - Sensors Data
     # 2 - Alarm Set/Alarm Display
 
-    try:
-        curr_state = 0 # Set 0 as default state
-        while True:
-            # Use UP and DOWN GPIOs to move between states
-            # Arrow UP
-            if GPIO.input(15) == GPIO.HIGH:
-                print()
-                print("Current Threads: ")
-                print([th.name for th in threading.enumerate()])
-                print(curr_state)
-                print("Arrow UP Pressed")
 
-                if curr_state + 1 <= 2:
-                    curr_state = curr_state + 1
-                else:
-                    curr_state = 0
+    curr_state = 0 # Set 0 as default state
+    while True:
+        # Use UP and DOWN GPIOs to move between states
+        # Arrow UP
+        if GPIO.input(15) == GPIO.HIGH:
+            print()
+            print("Current Threads: ")
+            print([th.name for th in threading.enumerate()])
+            print(curr_state)
+            print("Arrow UP Pressed")
 
-                print("New state: ")
-                print(curr_state)
-                print("Current Threads: ")
-                print([th.name for th in threading.enumerate()])
-                print()
+            if curr_state + 1 <= 2:
+                curr_state = curr_state + 1
+            else:
+                curr_state = 0
 
-            # Arrow DOWN
-            if GPIO.input(13) == GPIO.HIGH:
-                print()
-                print("Current Threads: ")
-                print([th.name for th in threading.enumerate()])
-                print(curr_state)
-                print("Arrow Down Pressed")
+            print("New state: ")
+            print(curr_state)
+            print("Current Threads: ")
+            print([th.name for th in threading.enumerate()])
+            print()
 
-                if curr_state - 1 >= 0:
-                    curr_state = curr_state - 1
-                else:
-                    curr_state = 2
+        # Arrow DOWN
+        if GPIO.input(13) == GPIO.HIGH:
+            print()
+            print("Current Threads: ")
+            print([th.name for th in threading.enumerate()])
+            print(curr_state)
+            print("Arrow Down Pressed")
 
-                print("New state: ")
-                print(curr_state)
-                print("Current Threads: ")
-                print([th.name for th in threading.enumerate()])
-                print()
+            if curr_state - 1 >= 0:
+                curr_state = curr_state - 1
+            else:
+                curr_state = 2
+
+            print("New state: ")
+            print(curr_state)
+            print("Current Threads: ")
+            print([th.name for th in threading.enumerate()])
+            print()
             
-            # RESET button
-            if GPIO.input(11) == GPIO.HIGH:
-                break
+        # RESET button
+        if GPIO.input(11) == GPIO.HIGH:
+            break
 
-            # 0 - Clock Date & Time
-            if abs(curr_state) == 0:
+        # 0 - Clock Date & Time
+        if abs(curr_state) == 0:
 
-                if "clock" not in [th.name for th in threading.enumerate()]:
-                    print("Starting clock thread...")
-                    sleep(1)
-                    clock_thread = threading.Thread(target=clock, name="clock")
-                    clock_thread.start()
+            if "clock" not in [th.name for th in threading.enumerate()]:
+                print("Starting clock thread...")
+                sleep(1)
+                clock_thread = threading.Thread(target=clock, name="clock")
+                clock_thread.start()
             
-            # 1 - Sensors Data
-            elif abs(curr_state) == 1:
+        # 1 - Sensors Data
+        elif abs(curr_state) == 1:
 
-                if "sensors" not in [th.name for th in threading.enumerate()]:
-                    print("Starting Sensors thread...")
-                    sleep(1)
-                    sensors_thread = threading.Thread(target=sensors, name="sensors")
-                    sensors_thread.start()
+            if "sensors" not in [th.name for th in threading.enumerate()]:
+                print("Starting Sensors thread...")
+                sleep(1)
+                sensors_thread = threading.Thread(target=sensors, name="sensors")
+                sensors_thread.start()
             
-            # 2 - Alarm Set/Alarm Display
-            elif abs(curr_state) == 2:
+        # 2 - Alarm Set/Alarm Display
+        elif abs(curr_state) == 2:
 
-                #sensors_thread.join()
+            #sensors_thread.join()
                 
-                if "alarm" not in [th.name for th in threading.enumerate()]:
-                    print("Starting Alarm thread...")
-                    sleep(1)
-                    alarm_thread = threading.Thread(target=alarm, name="alarm")
-                    alarm_thread.start()
-                   
+            if "alarm" not in [th.name for th in threading.enumerate()]:
+                print("Starting Alarm thread...")
+                sleep(1)
+                alarm_thread = threading.Thread(target=alarm, name="alarm")
+                alarm_thread.start()
 
-    except KeyboardInterrupt:
-        lcd.lcd_clear()
 
     
     
