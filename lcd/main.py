@@ -141,7 +141,7 @@ if __name__ == "__main__":
             # 1 - Sensors Data
             elif abs(curr_state) == 1:
 
-                clock_thread._Thread_stop()
+                #clock_thread.join()
 
                 if "sensors" not in [th.name for th in threading.enumerate()]:
                     print("Starting Sensors thread...")
@@ -152,7 +152,7 @@ if __name__ == "__main__":
             # 2 - Alarm Set/Alarm Display
             elif abs(curr_state) == 2:
 
-                sensors_thread._Thread_stop()
+                #sensors_thread.join()
                 
                 if "alarm" not in [th.name for th in threading.enumerate()]:
                     print("Starting Alarm thread...")
