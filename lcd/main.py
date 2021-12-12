@@ -21,9 +21,6 @@ def alarm():
                 if "sensors" not in [th.name for th in threading.enumerate()]:
                     lcd.lcd_display_string('Alarm', 1)
             
-            else:
-                sensors_thread.join()
-
             # Stop displaying
             if GPIO.input(11) == GPIO.HIGH:
                 break
@@ -43,9 +40,6 @@ def sensors():
             if "clock" not in [th.name for th in threading.enumerate()]:
                 if "alarm" not in [th.name for th in threading.enumerate()]:
                     lcd.lcd_display_string('Sensors Data', 1)
-            
-            else:
-                sensors_thread.join()
             
             # Stop displaying
             if GPIO.input(11) == GPIO.HIGH:
@@ -68,9 +62,6 @@ def clock():
                     lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
                     lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
             
-            else:
-                clock_thread.join()
-
             # Stop displaying
             if GPIO.input(11) == GPIO.HIGH:
                 break
@@ -106,10 +97,12 @@ if __name__ == "__main__":
                 print([th.name for th in threading.enumerate()])
                 print(curr_state)
                 print("Arrow UP Pressed")
+
                 if curr_state + 1 <= 2:
                     curr_state = curr_state + 1
                 else:
                     curr_state = 0
+
                 print("New state: ")
                 print(curr_state)
                 print("Current Threads: ")
@@ -121,10 +114,12 @@ if __name__ == "__main__":
                 print([th.name for th in threading.enumerate()])
                 print(curr_state)
                 print("Arrow Down Pressed")
+
                 if curr_state - 1 >= 0:
                     curr_state = curr_state - 1
                 else:
                     curr_state = 2
+
                 print("New state: ")
                 print(curr_state)
                 print("Current Threads: ")
@@ -146,6 +141,8 @@ if __name__ == "__main__":
             # 1 - Sensors Data
             elif abs(curr_state) == 1:
 
+                clock_thread.join()
+
                 if "sensors" not in [th.name for th in threading.enumerate()]:
                     print("Starting Sensors thread...")
                     sleep(1)
@@ -154,6 +151,8 @@ if __name__ == "__main__":
             
             # 2 - Alarm Set/Alarm Display
             elif abs(curr_state) == 2:
+
+                sensors_thread.join()
                 
                 if "alarm" not in [th.name for th in threading.enumerate()]:
                     print("Starting Alarm thread...")
