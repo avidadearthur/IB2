@@ -1,3 +1,4 @@
+from gpiozero import MCP3008
 from time import sleep
 import math
 
