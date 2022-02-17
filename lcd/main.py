@@ -50,7 +50,6 @@ def sensors():
                 temp_channel  = 0
 
                 # Define delay between readings
-                delay = 5
 
                 # Read the light sensor data
                 light_level = sensors.ReadChannel(light_channel)
@@ -62,10 +61,8 @@ def sensors():
                 temp       = sensors.ConvertTemp(temp_volts,2)
  
                 # Print out results to lcd screen
-                lcd.lcd_display_string("Temp : {} ({}V) {} C".format(temp_level,temp_volts,temp))
- 
-                # Wait before repeating loop
-                time.sleep(delay)
+                lcd.lcd_display_string("Temp : {} ({}V) {} C".format(temp_level,temp_volts,temp),2)
+
             
         # Stop displaying
         if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
