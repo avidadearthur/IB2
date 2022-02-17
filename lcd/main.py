@@ -5,6 +5,7 @@ from time import sleep, strftime, time
 
 from gpiozero import exc
 import lcddriver
+import sensors
 import threading
 import RPi.GPIO as GPIO
 
@@ -38,12 +39,33 @@ def sensors():
     sleep(1)
     lcd.lcd_clear()
     
-    
     while True:
 
         if "clock" not in [th.name for th in threading.enumerate()]:
             if "alarm" not in [th.name for th in threading.enumerate()]:
                 lcd.lcd_display_string('Sensors Data', 1)
+                # Code for the sensors
+                # Define sensor channels
+                light_channel = 1
+                temp_channel  = 0
+
+                # Define delay between readings
+                delay = 5
+
+                # Read the light sensor data
+                light_level = sensors.ReadChannel(light_channel)
+                light_volts = sensors.ConvertVolts(light_level,2)
+ 
+                # Read the temperature sensor data
+                temp_level = sensors.ReadChannel(temp_channel)
+                temp_volts = sensors.ConvertVolts(temp_level,2)
+                temp       = sensors.ConvertTemp(temp_volts,2)
+ 
+                # Print out results to lcd screen
+                lcd.lcd_display_string("Temp : {} ({}V) {} C".format(temp_level,temp_volts,temp))
+ 
+                # Wait before repeating loop
+                time.sleep(delay)
             
         # Stop displaying
         if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
