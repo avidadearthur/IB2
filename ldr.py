@@ -39,8 +39,8 @@ def ConvertTemp(voltz_out,places):
   R_t = (R_o * voltz_out)/(voltz_src-voltz_out)
 
   temp = (A + B*ln(R_t/R_ref) + C*(ln(R_t/R_ref)**2) + D*(ln(R_t/R_ref)**3))**(-1)
-  temp = round(temp,places)
-  
+  temp = round(temp,places) -273.15
+
   return temp
  
 # Define sensor channels
@@ -64,7 +64,7 @@ while True:
   # Print out results
   print "--------------------------------------------"
   print("Light: {} ({}V)".format(light_level,light_volts))
-  print("Temp : {} ({}V) {} Ohms".format(temp_level,temp_volts,temp))
+  print("Temp : {} ({}V) {} C".format(temp_level,temp_volts,temp))
  
   # Wait before repeating loop
   time.sleep(delay)
