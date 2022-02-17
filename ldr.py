@@ -26,10 +26,10 @@ def ConvertVolts(data,places):
 # number of decimal places.
 def ConvertTemp(voltz_out,places):
  
-  R_o = 9680 
+  R_o = 9660 
   voltz_src = 3.3
  
-  R_t = R_o * (( voltz_src / voltz_out ) - 1)
+  R_t = ( R_o * voltz_out ) / ( voltz_src - voltz_out )
  
   temp = R_t
   temp = round(temp,places)
