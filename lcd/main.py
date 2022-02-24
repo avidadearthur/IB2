@@ -117,6 +117,8 @@ if __name__ == "__main__":
     GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # DOWN  GPIO27
     GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # RESET GPIO17
 
+    GPIO.setup(36, GPIO.OUT, initial=0) # LEDs  GPIO16
+
     lcd = lcddriver.lcd()
     # Possible states: 
     # 0 - Clock Date & Time
@@ -199,14 +201,16 @@ if __name__ == "__main__":
                 alarm_thread.start()
 
         # X - Always check ldr
-        # Sensors measurement
+
         # Define sensor channels
         light_channel = 1
-        temp_channel  = 0
 
         # Read the light sensor data
-        light_level = ldr.ReadChannel(light_channel)
-        light_volts = ldr.ConvertVolts(light_level, 2)
+        light_level = sensors.ReadChannel(light_channel)
+        light_volts = sensors.ConvertVolts(light_level, 2)
 
-        # Print out results
-        print("Light: {} ({}V)".format(light_level,light_volts))
+        # Define LED states
+        if(light_volts):
+            print("Lights are off")
+            # LEDs
+            GPIO.out(36, 1)
