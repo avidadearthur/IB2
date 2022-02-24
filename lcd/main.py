@@ -211,8 +211,6 @@ if __name__ == "__main__":
 
         # Define LED states
         if(light_volts > 2.0):
-            print("Lights are off")
-            # LEDs
             GPIO.output(36, 1)
         else:
             GPIO.output(36, 0)
