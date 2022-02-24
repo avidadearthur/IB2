@@ -204,8 +204,6 @@ if __name__ == "__main__":
         light_channel = 1
         temp_channel  = 0
 
-        # Define delay between readings
-        delay = 1
         # Read the light sensor data
         light_level = ldr.ReadChannel(light_channel)
         light_volts = ldr.ConvertVolts(light_level, 2)
@@ -219,6 +217,3 @@ if __name__ == "__main__":
         print("--------------------------------------------")
         print("Light: {} ({}V)".format(light_level,light_volts))
         print("Temp : {} ({}V) {} C".format(temp_level,temp_volts,temp))
-
-        # Wait before repeating loop
-        sleep(delay)
