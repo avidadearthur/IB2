@@ -5,7 +5,7 @@ from time import sleep, strftime, time
 
 from gpiozero import exc
 import lcddriver
-from sensors import *
+import sensors
 import threading
 import RPi.GPIO as GPIO
 
