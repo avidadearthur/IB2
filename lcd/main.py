@@ -35,7 +35,7 @@ def display_alarm():
                 tomorrowStr = tomorrow.strftime('%d-%m')
 
                 lcd.lcd_display_string('TIME: {}'.format(ALARMS[tomorrowStr]), 1)
-                lcd.lcd_display_string(tomorrowStr), 2)
+                lcd.lcd_display_string(tomorrowStr, 2)
 
 
         # Stop displaying
