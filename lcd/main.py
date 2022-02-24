@@ -210,7 +210,7 @@ if __name__ == "__main__":
         light_volts = sensors.ConvertVolts(light_level, 2)
 
         # Define LED states
-        if(light_volts):
+        if(light_volts > 2.0):
             print("Lights are off")
             # LEDs
             GPIO.output(36, 1)
