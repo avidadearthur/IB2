@@ -30,8 +30,8 @@ def display_alarm():
                 tomorrow = datetime.now() + timedelta(days=1)
                 tomorrowStr = tomorrow.strftime('%d-%m')
 
-                lcd.lcd_display_string('TIME: {}'.format(ALARMS[tomorrowStr][0]), 1)
-                lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
+                lcd.lcd_display_string('Nxt Alarm: {}'.format(ALARMS[tomorrowStr][0]), 1)
+                lcd.lcd_display_string(tomorrow.strftime('%a, %b %d %Y'), 2)
 
 
         # Stop displaying
