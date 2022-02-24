@@ -6,6 +6,7 @@ from time import sleep, strftime, time
 from gpiozero import exc
 import lcddriver
 import sensors
+import ldr
 import threading
 import RPi.GPIO as GPIO
 
@@ -198,6 +199,29 @@ if __name__ == "__main__":
                 alarm_thread = threading.Thread(target=alarm, name="alarm")
                 alarm_thread.start()
 
+        # Sensors measurement
+        # Define sensor channels
+        light_channel = 1
+        temp_channel  = 0
+
+        # Define delay between readings
+        delay = 5
+        # Read the light sensor data
+        light_level = ldr.ReadChannel(light_channel)
+        light_volts = ldr.ConvertVolts(light_level,2)
+
+        # Read the temperature sensor data
+        temp_level = ldr.ReadChannel(temp_channel)
+        temp_volts = ldr.ConvertVolts(temp_level,2)
+        temp       = ldr.ConvertTemp(temp_volts,2)
+
+        # Print out results
+        print("--------------------------------------------")
+        print("Light: {} ({}V)".format(light_level,light_volts))
+        print("Temp : {} ({}V) {} C".format(temp_level,temp_volts,temp))
+
+        # Wait before repeating loop
+        time.sleep(delay)
 
     
     
