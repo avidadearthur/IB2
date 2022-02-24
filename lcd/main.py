@@ -9,12 +9,11 @@ import ldr
 import threading
 import RPi.GPIO as GPIO
 
+
 def alarm():
-    
     sleep(1)
     lcd.lcd_clear()
-    
-    
+
     while True:
 
         if "clock" not in [th.name for th in threading.enumerate()]:
@@ -29,16 +28,16 @@ def alarm():
                 break
 
             break
-            
+
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
             break
 
+
 def display_sensors():
-    
     sleep(1)
     lcd.lcd_clear()
-    
+
     while True:
 
         if "clock" not in [th.name for th in threading.enumerate()]:
@@ -47,23 +46,22 @@ def display_sensors():
                 # Code for the sensors
                 # Define sensor channels
                 light_channel = 1
-                temp_channel  = 0
+                temp_channel = 0
 
                 # Define delay between readings
 
                 # Read the light sensor data
                 light_level = sensors.ReadChannel(light_channel)
-                light_volts = sensors.ConvertVolts(light_level,2)
- 
+                light_volts = sensors.ConvertVolts(light_level, 2)
+
                 # Read the temperature sensor data
                 temp_level = sensors.ReadChannel(temp_channel)
-                temp_volts = sensors.ConvertVolts(temp_level,2)
-                temp       = sensors.ConvertTemp(temp_volts,2)
- 
-                # Print out results to lcd screen
-                lcd.lcd_display_string("Temp : {} C".format(temp),2)
+                temp_volts = sensors.ConvertVolts(temp_level, 2)
+                temp = sensors.ConvertTemp(temp_volts, 2)
 
-            
+                # Print out results to lcd screen
+                lcd.lcd_display_string("Temp : {} C".format(temp), 2)
+
         # Stop displaying
         if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
             try:
@@ -72,14 +70,13 @@ def display_sensors():
                 break
 
             break
-            
+
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
             break
-    
+
 
 def clock():
-
     sleep(1)
     # Always start by clearing the LCD
     lcd.lcd_clear()
@@ -91,7 +88,7 @@ def clock():
                 # Date & Time display
                 lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
                 lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
-            
+
         # Stop displaying
         if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
             try:
@@ -100,24 +97,23 @@ def clock():
                 break
 
             break
-            
+
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
             break
 
 
-
 if __name__ == "__main__":
-    
-    GPIO.setwarnings(False) # Ignore warning for now
-    GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
-    # Set pins to be an input pin and set initial value to be pulled low (off)
-    GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # SET   GPIO23
-    GPIO.setup(15, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # UP    GPIO22
-    GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # DOWN  GPIO27
-    GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # RESET GPIO17
 
-    GPIO.setup(36, GPIO.OUT, initial=0) # LEDs  GPIO16
+    GPIO.setwarnings(False)  # Ignore warning for now
+    GPIO.setmode(GPIO.BOARD)  # Use physical pin numbering
+    # Set pins to be an input pin and set initial value to be pulled low (off)
+    GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # SET   GPIO23
+    GPIO.setup(15, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # UP    GPIO22
+    GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # DOWN  GPIO27
+    GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # RESET GPIO17
+
+    GPIO.setup(36, GPIO.OUT, initial=0)  # LEDs  GPIO16
 
     lcd = lcddriver.lcd()
     # Possible states: 
@@ -125,8 +121,7 @@ if __name__ == "__main__":
     # 1 - Sensors Data
     # 2 - Alarm Set/Alarm Display
 
-
-    curr_state = 0 # Set 0 as default state
+    curr_state = 0  # Set 0 as default state
     while True:
         # Use UP and DOWN GPIOs to move between states
         # Arrow UP
@@ -166,7 +161,7 @@ if __name__ == "__main__":
             print("Current Threads: ")
             print([th.name for th in threading.enumerate()])
             print()
-            
+
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
             break
@@ -179,7 +174,7 @@ if __name__ == "__main__":
                 sleep(1)
                 clock_thread = threading.Thread(target=clock, name="clock")
                 clock_thread.start()
-            
+
         # 1 - Sensors Data
         elif abs(curr_state) == 1:
 
@@ -188,12 +183,12 @@ if __name__ == "__main__":
                 sleep(1)
                 sensors_thread = threading.Thread(target=display_sensors, name="sensors")
                 sensors_thread.start()
-            
+
         # 2 - Alarm Set/Alarm Display
         elif abs(curr_state) == 2:
 
-            #sensors_thread.join()
-                
+            # sensors_thread.join()
+
             if "alarm" not in [th.name for th in threading.enumerate()]:
                 print("Starting Alarm thread...")
                 sleep(1)
@@ -210,7 +205,7 @@ if __name__ == "__main__":
         light_volts = sensors.ConvertVolts(light_level, 2)
 
         # Define LED states
-        if(light_volts > 2.0):
+        if light_volts > 2.0:
             GPIO.output(36, 1)
         else:
             GPIO.output(36, 0)
