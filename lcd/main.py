@@ -222,7 +222,4 @@ if __name__ == "__main__":
             print("Temp : {} ({}V) {} C".format(temp_level,temp_volts,temp))
 
             # Wait before repeating loop
-            time.sleep(delay)
-
-    
-    
+            sleep(delay)
