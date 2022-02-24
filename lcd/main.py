@@ -204,7 +204,7 @@ if __name__ == "__main__":
         temp_channel  = 0
 
         # Define delay between readings
-        delay = 5
+        delay = 1
         # Read the light sensor data
         light_level = ldr.ReadChannel(light_channel)
         light_volts = ldr.ConvertVolts(light_level, 2)
