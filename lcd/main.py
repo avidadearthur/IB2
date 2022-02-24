@@ -5,7 +5,6 @@ from time import sleep, strftime, time
 
 import lcddriver
 import sensors
-import ldr
 import threading
 import RPi.GPIO as GPIO
 
@@ -44,15 +43,8 @@ def display_sensors():
             if "alarm" not in [th.name for th in threading.enumerate()]:
                 lcd.lcd_display_string('Sensors Data', 1)
                 # Code for the sensors
-                # Define sensor channels
-                light_channel = 1
+                # Define sensor channel
                 temp_channel = 0
-
-                # Define delay between readings
-
-                # Read the light sensor data
-                light_level = sensors.ReadChannel(light_channel)
-                light_volts = sensors.ConvertVolts(light_level, 2)
 
                 # Read the temperature sensor data
                 temp_level = sensors.ReadChannel(temp_channel)
@@ -107,12 +99,14 @@ if __name__ == "__main__":
 
     GPIO.setwarnings(False)  # Ignore warning for now
     GPIO.setmode(GPIO.BOARD)  # Use physical pin numbering
+
     # Set pins to be an input pin and set initial value to be pulled low (off)
     GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # SET   GPIO23
     GPIO.setup(15, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # UP    GPIO22
     GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # DOWN  GPIO27
     GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # RESET GPIO17
 
+    # Set output pins
     GPIO.setup(36, GPIO.OUT, initial=0)  # LEDs  GPIO16
 
     lcd = lcddriver.lcd()
