@@ -26,16 +26,12 @@ def display_alarm():
                 # Code for the alarm goes here
                 ALARMS.update({"24-02": ["06:00", "06:30"], "25-02": ["07:00", "07:30"]})
 
-                lcd.lcd_display_string('Disp. current alarms', 1)
-                sleep(1)
-                lcd.lcd_clear()
-
                 # Date & Time display
                 tomorrow = datetime.now() + timedelta(days=1)
                 tomorrowStr = tomorrow.strftime('%d-%m')
 
-                lcd.lcd_display_string('TIME: {}'.format(ALARMS[tomorrowStr]), 1)
-                lcd.lcd_display_string(tomorrowStr, 2)
+                lcd.lcd_display_string('TIME: {}'.format(ALARMS[tomorrowStr][0]), 1)
+                lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
 
 
         # Stop displaying
