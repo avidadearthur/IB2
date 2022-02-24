@@ -3,10 +3,9 @@
 
 from time import sleep, strftime, time
 
-from gpiozero import exc
 import lcddriver
 import sensors
-import ldr
+from lcd import ldr
 import threading
 import RPi.GPIO as GPIO
 
@@ -208,12 +207,12 @@ if __name__ == "__main__":
         delay = 5
         # Read the light sensor data
         light_level = ldr.ReadChannel(light_channel)
-        light_volts = ldr.ConvertVolts(light_level,2)
+        light_volts = ldr.ConvertVolts(light_level, 2)
 
         # Read the temperature sensor data
         temp_level = ldr.ReadChannel(temp_channel)
-        temp_volts = ldr.ConvertVolts(temp_level,2)
-        temp       = ldr.ConvertTemp(temp_volts,2)
+        temp_volts = ldr.ConvertVolts(temp_level, 2)
+        temp       = ldr.ConvertTemp(temp_volts, 2)
 
         # Print out results
         print("--------------------------------------------")
