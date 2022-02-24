@@ -61,7 +61,7 @@ def display_sensors():
                 temp       = sensors.ConvertTemp(temp_volts,2)
  
                 # Print out results to lcd screen
-                lcd.lcd_display_string("Temp : {} ({}V) {} C".format(temp_level,temp_volts,temp),2)
+                lcd.lcd_display_string("Temp : {} C".format(temp),2)
 
             
         # Stop displaying
