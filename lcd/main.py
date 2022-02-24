@@ -9,7 +9,7 @@ import threading
 import RPi.GPIO as GPIO
 
 
-def alarm():
+def display_alarm():
     sleep(1)
     lcd.lcd_clear()
 
@@ -68,7 +68,7 @@ def display_sensors():
             break
 
 
-def clock():
+def display_clock():
     sleep(1)
     # Always start by clearing the LCD
     lcd.lcd_clear()
@@ -166,7 +166,7 @@ if __name__ == "__main__":
             if "clock" not in [th.name for th in threading.enumerate()]:
                 print("Starting clock thread...")
                 sleep(1)
-                clock_thread = threading.Thread(target=clock, name="clock")
+                clock_thread = threading.Thread(target=display_clock, name="clock")
                 clock_thread.start()
 
         # 1 - Sensors Data
@@ -186,7 +186,7 @@ if __name__ == "__main__":
             if "alarm" not in [th.name for th in threading.enumerate()]:
                 print("Starting Alarm thread...")
                 sleep(1)
-                alarm_thread = threading.Thread(target=alarm, name="alarm")
+                alarm_thread = threading.Thread(target=display_alarm, name="alarm")
                 alarm_thread.start()
 
         # X - Always check ldr
