@@ -8,6 +8,11 @@ import sensors
 import threading
 import RPi.GPIO as GPIO
 
+# Dictionary of alarms
+global ALARMS
+ALARMS = {}
+# ALARMS = { "24/02": "06:30A", "24/02": "06:30A", ... }
+
 
 def display_alarm():
     sleep(1)
@@ -17,7 +22,9 @@ def display_alarm():
 
         if "clock" not in [th.name for th in threading.enumerate()]:
             if "sensors" not in [th.name for th in threading.enumerate()]:
+                # Code for the alarm goes here
                 lcd.lcd_display_string('Alarm', 1)
+
 
         # Stop displaying
         if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
@@ -78,7 +85,7 @@ def display_clock():
         if "alarm" not in [th.name for th in threading.enumerate()]:
             if "sensors" not in [th.name for th in threading.enumerate()]:
                 # Date & Time display
-                lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S %p'), 1)
+                lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S'), 1)
                 lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
 
         # Stop displaying
