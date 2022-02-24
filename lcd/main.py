@@ -1,7 +1,8 @@
 #!/usr/bin/env python3.2.3
 # Date And Time Script
 
-from time import sleep, strftime, time
+from time import sleep, strftime
+from datetime import datetime, timedelta
 
 import lcddriver
 import sensors
@@ -11,7 +12,7 @@ import RPi.GPIO as GPIO
 # Dictionary of alarms
 global ALARMS
 ALARMS = {}
-# ALARMS = { "24/02": "06:30A", "24/02": "06:30A", ... }
+# ALARMS = { "24/02": ["06:00", "06:30"], "25/02": ["07:00", "07:30"], ... }
 
 
 def display_alarm():
@@ -23,7 +24,18 @@ def display_alarm():
         if "clock" not in [th.name for th in threading.enumerate()]:
             if "sensors" not in [th.name for th in threading.enumerate()]:
                 # Code for the alarm goes here
-                lcd.lcd_display_string('Alarm', 1)
+                ALARMS.update({"24-02": ["06:00", "06:30"], "25-02": ["07:00", "07:30"]})
+
+                lcd.lcd_display_string('Disp. current alarms', 1)
+                sleep(1)
+                lcd.lcd_clear()
+
+                # Date & Time display
+                tomorrow = datetime.now() + timedelta(days=1)
+                tomorrowStr = tomorrow.strftime('%d-%m')
+
+                lcd.lcd_display_string('TIME: {}'.format(ALARMS[tomorrowStr])), 1)
+                lcd.lcd_display_string(tomorrowStr), 2)
 
 
         # Stop displaying
