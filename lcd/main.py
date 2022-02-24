@@ -34,7 +34,7 @@ def alarm():
         if GPIO.input(11) == GPIO.HIGH:
             break
 
-def sensors():
+def display_sensors():
     
     sleep(1)
     lcd.lcd_clear()
@@ -184,7 +184,7 @@ if __name__ == "__main__":
             if "sensors" not in [th.name for th in threading.enumerate()]:
                 print("Starting Sensors thread...")
                 sleep(1)
-                sensors_thread = threading.Thread(target=sensors, name="sensors")
+                sensors_thread = threading.Thread(target=display_sensors, name="sensors")
                 sensors_thread.start()
             
         # 2 - Alarm Set/Alarm Display
