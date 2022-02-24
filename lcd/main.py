@@ -213,4 +213,4 @@ if __name__ == "__main__":
         if(light_volts):
             print("Lights are off")
             # LEDs
-            GPIO.out(36, 1)
+            GPIO.output(36, 1)
