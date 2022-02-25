@@ -13,6 +13,7 @@ import RPi.GPIO as GPIO
 global ALARMS
 ALARMS = {}
 # ALARMS = { "24/02": ["06:00", "06:30"], "25/02": ["07:00", "07:30"], ... }
+ALARMS.update({"24-02": ["06:00", "06:30"], "25-02": ["07:00", "07:30"]})
 
 
 def display_alarm():
@@ -24,7 +25,6 @@ def display_alarm():
         if "clock" not in [th.name for th in threading.enumerate()]:
             if "sensors" not in [th.name for th in threading.enumerate()]:
                 # Code for the alarm goes here
-                ALARMS.update({"24-02": ["06:00", "06:30"], "25-02": ["07:00", "07:30"]})
 
                 # Date & Time display
                 tomorrow = datetime.now() + timedelta(days=1)
@@ -32,6 +32,79 @@ def display_alarm():
 
                 lcd.lcd_display_string('Nxt Alarm: {}'.format(ALARMS[tomorrowStr][0]), 1)
                 lcd.lcd_display_string(tomorrow.strftime('%a, %b %d %Y'), 2)
+
+                # Arrow SET
+                if GPIO.input(16) == GPIO.HIGH:
+                    # Prepare for new display
+                    lcd.lcd_clear()
+
+                    #
+                    editMode = True
+
+                    # Convert dictionary str vale to int
+                    timeStr = ALARMS[tomorrowStr][0]
+                    hour = int(timeStr[0:2])
+                    minute = int(timeStr[3:])
+                    alarmDay = tomorrow  # Assume for now that we can only alter tomorrow's 1st alarm
+
+                    # Possible states:
+                    change_hour = True  # start by changing the hour field by default
+                    change_minutes = False
+
+                    while editMode:
+
+                        while change_hour:
+
+                            lcd.lcd_display_string('Nxt Alarm: {}:{}'.format(hour, minute), 1)
+                            # Assume for now that we can only alter tomorrow's 1st alarm
+                            lcd.lcd_display_string(alarmDay.strftime('%a, %b %d %Y'), 2)
+                            # Update ALARM Dict
+
+                            # Toggle states:
+                            if GPIO.input(16) == GPIO.HIGH:
+                                change_hour = False
+                                change_minutes = True
+                                lcd.lcd_clear()
+
+                            else:
+                                # Use UP and DOWN GPIOs to INCREMENT/DECREMENT value
+                                # Arrow UP
+                                if GPIO.input(15) == GPIO.HIGH:
+                                    if hour <= 24:
+                                        hour += 1
+                                        lcd.lcd_clear()
+
+                                # Arrow DOWN
+                                if GPIO.input(13) == GPIO.HIGH:
+                                    if hour > 0:
+                                        hour -= 1
+                                        lcd.lcd_clear()
+
+                        while change_minutes:
+
+                            lcd.lcd_display_string('Nxt Alarm: {}:{}'.format(hour, minute), 1)
+                            # Assume for now that we can only alter tomorrow's 1st alarm
+                            lcd.lcd_display_string(alarmDay.strftime('%a, %b %d %Y'), 2)
+                            # Update ALARM Dict
+
+                            # Leave edit mode:
+                            if GPIO.input(16) == GPIO.HIGH:
+                                editMode = False
+                                lcd.lcd_clear()
+
+                            else:
+                                # Use UP and DOWN GPIOs to INCREMENT/DECREMENT value
+                                # Arrow UP
+                                if GPIO.input(15) == GPIO.HIGH:
+                                    if minute < 59:
+                                        hour += 1
+                                        lcd.lcd_clear()
+
+                                # Arrow DOWN
+                                if GPIO.input(13) == GPIO.HIGH:
+                                    if minute > 0:
+                                        hour -= 1
+                                        lcd.lcd_clear()
 
 
         # Stop displaying
@@ -203,6 +276,9 @@ if __name__ == "__main__":
                 sleep(1)
                 alarm_thread = threading.Thread(target=display_alarm, name="alarm")
                 alarm_thread.start()
+
+        # X - Always check for the next alarm
+        # count down and database push/pull code will probably come here
 
         # X - Always check ldr
 
