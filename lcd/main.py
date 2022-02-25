@@ -11,13 +11,11 @@ import RPi.GPIO as GPIO
 
 # Dictionary of alarms
 global ALARMS
-# Global variable to avoid conflict with the main thread
-global EDITMODE
 
 ALARMS = {}
 # ALARMS = { "24/02": ["06:00", "06:30"], "25/02": ["07:00", "07:30"], ... }
 ALARMS.update({"24-02": ["06:00", "06:30"], "26-02": ["07:00", "07:30"]})
-EDITMODE = False
+
 
 
 def display_alarm():
@@ -43,7 +41,7 @@ def display_alarm():
                     lcd.lcd_clear()
 
                     #
-                    EDITMODE = True
+                    editMode = True
 
                     # Convert dictionary str vale to int
                     timeStr = ALARMS[tomorrowStr][0]
@@ -55,7 +53,7 @@ def display_alarm():
                     change_hour = True  # start by changing the hour field by default
                     change_minutes = False
 
-                    while EDITMODE:
+                    while editMode:
 
                         while change_hour:
 
@@ -93,7 +91,9 @@ def display_alarm():
 
                             # Leave edit mode:
                             if GPIO.input(16) == GPIO.HIGH:
-                                EDITMODE = False
+                                change_hour = False
+                                change_minutes = False
+                                editMode = False
                                 lcd.lcd_clear()
 
                             else:
@@ -101,13 +101,13 @@ def display_alarm():
                                 # Arrow UP
                                 if GPIO.input(15) == GPIO.HIGH:
                                     if minute < 59:
-                                        hour += 1
+                                        minute += 1
                                         lcd.lcd_clear()
 
                                 # Arrow DOWN
                                 if GPIO.input(13) == GPIO.HIGH:
                                     if minute > 0:
-                                        hour -= 1
+                                        minute -= 1
                                         lcd.lcd_clear()
 
 
