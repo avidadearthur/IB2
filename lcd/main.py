@@ -11,9 +11,13 @@ import RPi.GPIO as GPIO
 
 # Dictionary of alarms
 global ALARMS
+# Global variable to avoid conflict with the main thread
+global EDITMODE
+
 ALARMS = {}
 # ALARMS = { "24/02": ["06:00", "06:30"], "25/02": ["07:00", "07:30"], ... }
 ALARMS.update({"24-02": ["06:00", "06:30"], "26-02": ["07:00", "07:30"]})
+EDITMODE = False
 
 
 def display_alarm():
@@ -39,7 +43,7 @@ def display_alarm():
                     lcd.lcd_clear()
 
                     #
-                    editMode = True
+                    EDITMODE = True
 
                     # Convert dictionary str vale to int
                     timeStr = ALARMS[tomorrowStr][0]
@@ -51,7 +55,7 @@ def display_alarm():
                     change_hour = True  # start by changing the hour field by default
                     change_minutes = False
 
-                    while editMode:
+                    while EDITMODE:
 
                         while change_hour:
 
@@ -89,7 +93,7 @@ def display_alarm():
 
                             # Leave edit mode:
                             if GPIO.input(16) == GPIO.HIGH:
-                                editMode = False
+                                EDITMODE = False
                                 lcd.lcd_clear()
 
                             else:
@@ -208,41 +212,43 @@ if __name__ == "__main__":
         # Use UP and DOWN GPIOs to move between states
         # Arrow UP
         if GPIO.input(15) == GPIO.HIGH:
-            print()
-            print("Current Threads: ")
-            print([th.name for th in threading.enumerate()])
-            print(curr_state)
-            print("Arrow UP Pressed")
+            if "alarm" not in [th.name for th in threading.enumerate()]:
+                print()
+                print("Current Threads: ")
+                print([th.name for th in threading.enumerate()])
+                print(curr_state)
+                print("Arrow UP Pressed")
 
-            if curr_state + 1 <= 2:
-                curr_state = curr_state + 1
-            else:
-                curr_state = 0
+                if curr_state + 1 <= 2:
+                    curr_state = curr_state + 1
+                else:
+                    curr_state = 0
 
-            print("New state: ")
-            print(curr_state)
-            print("Current Threads: ")
-            print([th.name for th in threading.enumerate()])
-            print()
+                print("New state: ")
+                print(curr_state)
+                print("Current Threads: ")
+                print([th.name for th in threading.enumerate()])
+                print()
 
         # Arrow DOWN
         if GPIO.input(13) == GPIO.HIGH:
-            print()
-            print("Current Threads: ")
-            print([th.name for th in threading.enumerate()])
-            print(curr_state)
-            print("Arrow Down Pressed")
+            if "alarm" not in [th.name for th in threading.enumerate()]:
+                print()
+                print("Current Threads: ")
+                print([th.name for th in threading.enumerate()])
+                print(curr_state)
+                print("Arrow Down Pressed")
 
-            if curr_state - 1 >= 0:
-                curr_state = curr_state - 1
-            else:
-                curr_state = 2
+                if curr_state - 1 >= 0:
+                    curr_state = curr_state - 1
+                else:
+                    curr_state = 2
 
-            print("New state: ")
-            print(curr_state)
-            print("Current Threads: ")
-            print([th.name for th in threading.enumerate()])
-            print()
+                print("New state: ")
+                print(curr_state)
+                print("Current Threads: ")
+                print([th.name for th in threading.enumerate()])
+                print()
 
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
