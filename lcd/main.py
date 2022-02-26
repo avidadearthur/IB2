@@ -98,7 +98,7 @@ def display_alarm():
 
                                 # Update ALARM Dict
                                 updated_list = [time for time in ALARMS[tomorrow_str]]
-                                updated_list[0] = '{}:{}'.format(hour, minute)
+                                updated_list[0] = '{}:{}'.format(hour_str, minute_str)
                                 ALARMS[tomorrow_str] = updated_list
 
                             else:
