@@ -53,8 +53,8 @@ def display_alarm():
                     while edit_mode:
 
                         while change_hour:
-                            minute_str, hour_str = str(minute).zfill(2), str(hour).zfill(2)
-                            lcd.lcd_display_string('Nxt Alarm: {}:{}'.format(minute_str, hour_str), 1)
+
+                            lcd.lcd_display_string('Nxt Alarm: {:02}:{:02}'.format(minute, hour), 1)
                             # Assume for now that we can only alter tomorrow's 1st alarm
                             lcd.lcd_display_string(alarm_day.strftime('%a, %b %d %Y'), 2)
 
@@ -76,8 +76,8 @@ def display_alarm():
                                         hour -= 1
 
                         while change_minutes:
-                            minute_str, hour_str = str(minute).zfill(2), str(hour).zfill(2)
-                            lcd.lcd_display_string('Nxt Alarm: {}:{}'.format(minute_str, hour_str), 1)
+
+                            lcd.lcd_display_string('Nxt Alarm: {:02} {:02}'.format(minute, hour), 1)
 
                             # Assume for now that we can only alter tomorrow's 1st alarm
                             lcd.lcd_display_string(alarm_day.strftime('%a, %b %d %Y'), 2)
@@ -90,8 +90,8 @@ def display_alarm():
 
                                 # Update ALARM Dict
                                 updated_list = [time for time in ALARMS[tomorrow_str]]
-                                minute_str, hour_str = str(minute).zfill(2), str(hour).zfill(2)
-                                updated_list[0] = '{}:{}'.format(minute_str, hour_str )
+
+                                updated_list[0] = '{:02} {:02}'.format(minute, hour)
                                 ALARMS[tomorrow_str] = updated_list
 
                             else:
