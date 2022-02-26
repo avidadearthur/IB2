@@ -67,7 +67,7 @@ def display_alarm():
                                 # Use UP and DOWN GPIOs to INCREMENT/DECREMENT value
                                 # Arrow UP
                                 if GPIO.input(15) == GPIO.HIGH:
-                                    if hour <= 24:
+                                    if hour < 24:
                                         hour += 1
 
                                 # Arrow DOWN
