@@ -60,7 +60,7 @@ def display_alarm():
                             # Assume for now that we can only alter tomorrow's 1st alarm
                             lcd.lcd_display_string(alarmDay.strftime('%a, %b %d %Y'), 2)
                             # Update ALARM Dict
-                            print(ALARMS[tomorrowStr][0])
+                            ALARMS[tomorrowStr][0] = '{}:{}'.format(hour, minute)
 
                             # Toggle states:
                             if GPIO.input(16) == GPIO.HIGH:
