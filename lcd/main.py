@@ -92,7 +92,7 @@ def display_alarm():
                                 # Update ALARM Dict
                                 updated_list = [time for time in ALARMS[tomorrowStr]]
                                 updated_list[0] = '{}:{}'.format(hour, minute)
-                                ALARMS.update({ALARMS[tomorrowStr] : updated_list})
+                                ALARMS[tomorrowStr] = updated_list
 
                             else:
                                 # Use UP and DOWN GPIOs to INCREMENT/DECREMENT value
