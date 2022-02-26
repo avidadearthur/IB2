@@ -65,7 +65,7 @@ def display_alarm():
                             if GPIO.input(16) == GPIO.HIGH:
                                 change_hour = False
                                 change_minutes = True
-                                lcd.lcd_clear()
+                                #lcd.lcd_clear()
 
                             else:
                                 # Use UP and DOWN GPIOs to INCREMENT/DECREMENT value
@@ -73,13 +73,13 @@ def display_alarm():
                                 if GPIO.input(15) == GPIO.HIGH:
                                     if hour <= 24:
                                         hour += 1
-                                        lcd.lcd_clear()
+                                        #lcd.lcd_clear()
 
                                 # Arrow DOWN
                                 if GPIO.input(13) == GPIO.HIGH:
                                     if hour > 0:
                                         hour -= 1
-                                        lcd.lcd_clear()
+                                        #lcd.lcd_clear()
 
                         while change_minutes:
 
@@ -93,7 +93,7 @@ def display_alarm():
                                 change_hour = True
                                 change_minutes = False
                                 editMode = False
-                                lcd.lcd_clear()
+                                #lcd.lcd_clear()
 
                             else:
                                 # Use UP and DOWN GPIOs to INCREMENT/DECREMENT value
@@ -101,13 +101,13 @@ def display_alarm():
                                 if GPIO.input(15) == GPIO.HIGH:
                                     if minute < 59:
                                         minute += 1
-                                        lcd.lcd_clear()
+                                        #lcd.lcd_clear()
 
                                 # Arrow DOWN
                                 if GPIO.input(13) == GPIO.HIGH:
                                     if minute > 0:
                                         minute -= 1
-                                        lcd.lcd_clear()
+                                        #lcd.lcd_clear()
 
 
         # Stop displaying
