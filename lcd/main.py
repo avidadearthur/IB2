@@ -90,7 +90,7 @@ def display_alarm():
 
                             # Leave edit mode:
                             if GPIO.input(16) == GPIO.HIGH:
-                                change_hour = False
+                                change_hour = True
                                 change_minutes = False
                                 editMode = False
                                 lcd.lcd_clear()
