@@ -167,7 +167,7 @@ def display_clock():
         if "alarm" not in [th.name for th in threading.enumerate()]:
             if "sensors" not in [th.name for th in threading.enumerate()]:
                 # Date & Time display
-                lcd.lcd_display_string(strftime('TIME: ' '%I:%M:%S'), 1)
+                lcd.lcd_display_string(strftime('TIME: ' '%H:%M:%S'), 1)
                 lcd.lcd_display_string(strftime('%a, %b %d %Y'), 2)
 
         # Stop displaying
