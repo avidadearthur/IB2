@@ -19,7 +19,6 @@ ALARMS.update({"24-02": ["06:00", "06:30"], "26-02": ["07:00", "07:30"]})
 
 
 def display_alarm():
-    sleep(1)
     lcd.lcd_clear()
 
     while True:
@@ -126,7 +125,6 @@ def display_alarm():
 
 
 def display_sensors():
-    sleep(1)
     lcd.lcd_clear()
 
     while True:
@@ -161,7 +159,6 @@ def display_sensors():
 
 
 def display_clock():
-    sleep(1)
     # Always start by clearing the LCD
     lcd.lcd_clear()
 
@@ -259,7 +256,7 @@ if __name__ == "__main__":
 
             if "clock" not in [th.name for th in threading.enumerate()]:
                 print("Starting clock thread...")
-                sleep(1)
+                sleep(0.2)
                 clock_thread = threading.Thread(target=display_clock, name="clock")
                 clock_thread.start()
 
@@ -268,7 +265,7 @@ if __name__ == "__main__":
 
             if "sensors" not in [th.name for th in threading.enumerate()]:
                 print("Starting Sensors thread...")
-                sleep(1)
+                sleep(0.2)
                 sensors_thread = threading.Thread(target=display_sensors, name="sensors")
                 sensors_thread.start()
 
@@ -279,7 +276,7 @@ if __name__ == "__main__":
 
             if "alarm" not in [th.name for th in threading.enumerate()]:
                 print("Starting Alarm thread...")
-                sleep(1)
+                sleep(0.2)
                 alarm_thread = threading.Thread(target=display_alarm, name="alarm")
                 alarm_thread.start()
 
