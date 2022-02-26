@@ -52,9 +52,17 @@ def display_alarm():
 
                     while edit_mode:
 
+                        if hour < 10:
+                            hour_str = '0' + str(hour)
+                        if minute < 10:
+                            minute_str = '0' + str(minute)
+                        else:
+                            hour_str = str(hour)
+                            minute_str = str(minute)
+
                         while change_hour:
 
-                            lcd.lcd_display_string('Nxt Alarm: {}:{}'.format(hour, minute), 1)
+                            lcd.lcd_display_string('Nxt Alarm: {}:{}'.format(hour_str, minute_str), 1)
                             # Assume for now that we can only alter tomorrow's 1st alarm
                             lcd.lcd_display_string(alarm_day.strftime('%a, %b %d %Y'), 2)
 
@@ -77,7 +85,7 @@ def display_alarm():
 
                         while change_minutes:
 
-                            lcd.lcd_display_string('Nxt Alarm: {}:{}'.format(hour, minute), 1)
+                            lcd.lcd_display_string('Nxt Alarm: {}:{}'.format(hour_str, minute_str), 1)
 
                             # Assume for now that we can only alter tomorrow's 1st alarm
                             lcd.lcd_display_string(alarm_day.strftime('%a, %b %d %Y'), 2)
