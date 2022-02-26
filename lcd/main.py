@@ -83,7 +83,7 @@ def display_alarm():
 
                             # 1 digit minute
                             if minute < 10:
-                                lcd.lcd_display_string('Nxt Alarm: 0{}:{}'.format(hour, minute), 1)
+                                lcd.lcd_display_string('Nxt Alarm: {}:0{}'.format(hour, minute), 1)
                             else:
                                 lcd.lcd_display_string('Nxt Alarm: {}:{}'.format(hour, minute), 1)
                             # Assume for now that we can only alter tomorrow's 1st alarm
