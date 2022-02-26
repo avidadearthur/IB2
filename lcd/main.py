@@ -59,10 +59,8 @@ def display_alarm():
                             lcd.lcd_display_string('Nxt Alarm: {}:{}'.format(hour, minute), 1)
                             # Assume for now that we can only alter tomorrow's 1st alarm
                             lcd.lcd_display_string(alarmDay.strftime('%a, %b %d %Y'), 2)
-                            # Update ALARM Dict
-                            ALARMS[tomorrowStr][0] = '{}:{}'.format(hour, minute)
 
-                            # Toggle states:
+                            # Leave change_hour and go to change_minutes:
                             if GPIO.input(16) == GPIO.HIGH:
                                 change_hour = False
                                 change_minutes = True
@@ -84,7 +82,6 @@ def display_alarm():
                             lcd.lcd_display_string('Nxt Alarm: {}:{}'.format(hour, minute), 1)
                             # Assume for now that we can only alter tomorrow's 1st alarm
                             lcd.lcd_display_string(alarmDay.strftime('%a, %b %d %Y'), 2)
-                            # Update ALARM Dict
 
                             # Leave edit mode:
                             if GPIO.input(16) == GPIO.HIGH:
@@ -92,8 +89,10 @@ def display_alarm():
                                 change_minutes = False
                                 editMode = False
 
-                                # Update dict
-                                ALARMS.update({"24-02": ["06:00", "06:30"], "27-02": ["07:00", "07:30"]})
+                                # Update ALARM Dict
+                                updated_list = [time for time in ALARMS[tomorrowStr]]
+                                updated_list[0] = '{}:{}'.format(hour, minute)
+                                ALARMS.update({ALARMS[tomorrowStr] : updated_list})
 
                             else:
                                 # Use UP and DOWN GPIOs to INCREMENT/DECREMENT value
