@@ -36,7 +36,7 @@ def display_alarm():
                 # Arrow SET
                 if GPIO.input(16) == GPIO.HIGH:
                     # Prepare for new display
-                    # lcd.lcd_clear()
+                    lcd.lcd_clear()
 
                     edit_mode = True
 
