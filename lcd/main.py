@@ -55,7 +55,7 @@ def display_alarm():
                         while change_hour:
 
                             if hour < 10:
-                                hour_str = 0 + str(hour)
+                                hour_str = '0' + str(hour)
                             elif hour > 10:
                                 hour_str = str(hour)
 
@@ -83,7 +83,7 @@ def display_alarm():
                         while change_minutes:
 
                             if minute < 10:
-                                minute_str = 0 + str(minute)
+                                minute_str = '0' + str(minute)
                             elif minute > 10:
                                 minute_str = str(minute)
 
