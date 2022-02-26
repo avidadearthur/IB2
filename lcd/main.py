@@ -50,8 +50,7 @@ def display_alarm():
                     change_hour = True  # start by changing the hour field by default
                     change_minutes = False
 
-                    while edit_mode:
-
+                    def time_to_str():
                         if hour < 10:
                             hour_str = '0' + str(hour)
                         if minute < 10:
@@ -60,9 +59,13 @@ def display_alarm():
                             hour_str = str(hour)
                             minute_str = str(minute)
 
+                        return hour_str, minute_str
+
+                    while edit_mode:
+
                         while change_hour:
 
-                            lcd.lcd_display_string('Nxt Alarm: {}:{}'.format(hour_str, minute_str), 1)
+                            lcd.lcd_display_string('Nxt Alarm: {}:{}'.format(time_to_str()[0], time_to_str()[1]), 1)
                             # Assume for now that we can only alter tomorrow's 1st alarm
                             lcd.lcd_display_string(alarm_day.strftime('%a, %b %d %Y'), 2)
 
@@ -85,7 +88,7 @@ def display_alarm():
 
                         while change_minutes:
 
-                            lcd.lcd_display_string('Nxt Alarm: {}:{}'.format(hour_str, minute_str), 1)
+                            lcd.lcd_display_string('Nxt Alarm: {}:{}'.format(time_to_str()[0], time_to_str()[1]), 1)
 
                             # Assume for now that we can only alter tomorrow's 1st alarm
                             lcd.lcd_display_string(alarm_day.strftime('%a, %b %d %Y'), 2)
@@ -98,7 +101,7 @@ def display_alarm():
 
                                 # Update ALARM Dict
                                 updated_list = [time for time in ALARMS[tomorrow_str]]
-                                updated_list[0] = '{}:{}'.format(hour_str, minute_str)
+                                updated_list[0] = '{}:{}'.format(time_to_str()[0], time_to_str()[1])
                                 ALARMS[tomorrow_str] = updated_list
 
                             else:
