@@ -45,9 +45,7 @@ def display_alarm():
 
                 # If no alarm has been set ...
                 if not datetime_alarm:
-                    lcd.lcd_display_string('No alarm. Add new?', 1)
-                    lcd.lcd_display_string('No alarm. Add new?', 1)
-
+                    print("No alarms set")
 
                 # Closing the connection
                 connection.close()
