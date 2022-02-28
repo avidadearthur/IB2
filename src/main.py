@@ -45,8 +45,35 @@ def display_alarm():
 
                 # If no alarm has been set ...
                 if not datetime_alarm:
-                    lcd.lcd_display_string('No alarms st', 1)
-                    lcd.lcd_display_string('Add new? YES NO', 2)
+
+                    ans = "YES"
+                    lcd.lcd_display_string('No alarms set', 1)
+                    lcd.lcd_display_string('Add new?     {}'.format(ans), 2)
+
+                    if GPIO.input(16) == GPIO.HIGH:
+                        choice_mode = True
+
+                    while choice_mode:
+
+                        lcd.lcd_display_string('No alarms set', 1)
+                        lcd.lcd_display_string('Add new?     {}'.format(ans), 2)
+
+                        # Arrow UP
+                        if GPIO.input(15) == GPIO.HIGH:
+                            ans = "YES"
+
+                        # Arrow DOWN
+                        if GPIO.input(13) == GPIO.HIGH:
+                            ans = "NO"
+
+                        # SET
+                        if GPIO.input(16) == GPIO.HIGH and ans == "YES":
+                            edit_mode = True
+                            choice_mode = False
+                        # SET
+                        elif GPIO.input(16) == GPIO.HIGH and ans == "NO":
+                            edit_mode = False
+                            choice_mode = False
 
                 # Closing the connection
                 connection.close()
