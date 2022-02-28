@@ -26,6 +26,7 @@ def display_alarm():
         if "clock" not in [th.name for th in threading.enumerate()]:
             if "sensors" not in [th.name for th in threading.enumerate()]:
                 # Code for the alarm goes here
+                edit_mode = False
 
                 # Connecting to the database
                 connection = sqlite3.connect("../alarms.db")
@@ -46,30 +47,45 @@ def display_alarm():
                 # If no alarm has been set ...
                 if not datetime_alarm:
 
-                    choice_mode = True
-                    ans = "YES"
+                    lcd.lcd_display_string('No alarms set', 1)
+                    lcd.lcd_display_string('Hit SET to add', 2)
+                    # SET
+                    if GPIO.input(16) == GPIO.HIGH:
+                        edit_mode = True
 
-                    while choice_mode:
+                        # Possible states:
+                        change_hour = True  # start by changing the hour field by default
+                        change_minutes = False
 
-                        lcd.lcd_display_string('No alarms set', 1)
-                        lcd.lcd_display_string('Add new?     {}'.format(ans), 2)
+                while edit_mode:
+                    #Add edit logic
 
-                        # Arrow UP
-                        if GPIO.input(15) == GPIO.HIGH:
-                            ans = "YES"
-
-                        # Arrow DOWN
-                        if GPIO.input(13) == GPIO.HIGH:
-                            ans = "NO"
-
-                        # SET
-                        if GPIO.input(16) == GPIO.HIGH and ans == "YES":
-                            edit_mode = True
-                            choice_mode = False
-                        # SET
-                        elif GPIO.input(16) == GPIO.HIGH and ans == "NO":
-                            edit_mode = False
-                            choice_mode = False
+                # choice_mode = True
+                # ans = "YES"
+                #
+                # while choice_mode:
+                #
+                #     lcd.lcd_display_string('No alarms set', 1)
+                #     lcd.lcd_display_string('Add new?     {}'.format(ans), 2)
+                #
+                #     # Arrow UP
+                #     if GPIO.input(15) == GPIO.HIGH:
+                #         ans = "YES"
+                #         lcd.lcd_clear()
+                #
+                #     # Arrow DOWN
+                #     if GPIO.input(13) == GPIO.HIGH:
+                #         ans = "NO"
+                #         lcd.lcd_clear()
+                #
+                #     # SET
+                #     if GPIO.input(16) == GPIO.HIGH and ans == "YES":
+                #         edit_mode = True
+                #         choice_mode = False
+                #     # SET
+                #     elif GPIO.input(16) == GPIO.HIGH and ans == "NO":
+                #         edit_mode = False
+                #         choice_mode = False
 
                 # Closing the connection
                 connection.close()
