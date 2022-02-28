@@ -39,7 +39,7 @@ def display_alarm():
 
                 # Retrieve next alarm
                 datetime_alarm = cursor.execute('''SELECT alarm_datetime FROM alarm_schedule
-                WHERE alarm_datetime >= CURDATE() ORDER BY alarm_datetime ASC LIMIT 1;''')
+                WHERE alarm_datetime >= DATE('now')  ORDER BY alarm_datetime ASC LIMIT 1;''')
                 print(datetime_alarm)
 
                 # Closing the connection
