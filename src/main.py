@@ -33,16 +33,19 @@ def display_alarm():
                 # cursor
                 cursor = connection.cursor()
 
-                # Date & Time display
-                datetime_now = datetime.now()
-                date_now_str = datetime_now.strftime('%y-%m-%d')   # mind te date format MM-DD
+                # # Date & Time display
+                # datetime_now = datetime.now()
+                # date_now_str = datetime_now.strftime('%y-%m-%d')   # mind te date format MM-DD
 
                 # Retrieve next alarm
                 cursor.execute('''SELECT alarm_datetime FROM alarm_schedule
                 WHERE alarm_datetime >= DATE('now')  ORDER BY alarm_datetime ASC LIMIT 1;''')
 
                 datetime_alarm = cursor.fetchall()
-                print(datetime_alarm)
+
+                # If no alarm has been set ...
+                if not datetime_alarm:
+                    print("No alarms set")
 
                 # Closing the connection
                 connection.close()
