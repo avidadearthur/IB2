@@ -38,7 +38,7 @@ def display_alarm():
                 date_now_str = datetime_now.strftime('%y-%m-%d')   # mind te date format MM-DD
 
                 # Retrieve next alarm
-                datetime_alarm = cursor.execute('''SELECT alarm_@datetime FROM alarm_schedule ;''')
+                datetime_alarm = cursor.execute('''SELECT set_by FROM alarm_schedule ;''')
                 print(datetime_alarm)
 
                 # Closing the connection
