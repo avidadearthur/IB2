@@ -46,6 +46,7 @@ def display_alarm():
                 # If no alarm has been set ...
                 if not datetime_alarm:
 
+                    choice_mode = False
                     ans = "YES"
                     lcd.lcd_display_string('No alarms set', 1)
                     lcd.lcd_display_string('Add new?     {}'.format(ans), 2)
