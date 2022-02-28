@@ -38,7 +38,8 @@ def display_alarm():
                 date_now_str = datetime_now.strftime('%y-%m-%d')   # mind te date format MM-DD
 
                 # Retrieve next alarm
-                datetime_alarm = cursor.execute('''SELECT alarm_datetime FROM alarm_schedule;''')
+                datetime_alarm = cursor.execute('''SELECT alarm_datetime FROM alarm_schedule
+                WHERE alarm_datetime >= CURDATE() ORDER BY alarm_datetime ASC LIMIT 1;''')
                 print(datetime_alarm)
 
                 # Closing the connection
