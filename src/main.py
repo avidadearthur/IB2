@@ -28,7 +28,7 @@ def display_alarm():
                 # Code for the alarm goes here
 
                 # Connecting to the database
-                connection = sqlite3.connect("alarms.db")
+                connection = sqlite3.connect("../alarms.db")
 
                 # cursor
                 cursor = connection.cursor()
@@ -38,7 +38,7 @@ def display_alarm():
                 date_now_str = datetime_now.strftime('%y-%m-%d')   # mind te date format MM-DD
 
                 # Retrieve next alarm
-                datetime_alarm = cursor.execute('''SELECT set_by FROM alarm_schedule ;''')
+                datetime_alarm = cursor.execute('''SELECT set_by FROM alarm_schedule;''')
                 print(datetime_alarm)
 
                 # Closing the connection
