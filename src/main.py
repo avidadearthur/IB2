@@ -74,6 +74,8 @@ def display_alarm():
 
                     # SET
                     if GPIO.input(16) == GPIO.HIGH:
+                        lcd.lcd_clear()
+
                         edit_mode = True
                         change_hour = True  # start by changing the hour field by default
                         change_minutes = False
@@ -81,13 +83,16 @@ def display_alarm():
 
                     print(datetime_alarm)
 
-                    hour = 7
+                    hour = 3
                     minute = 30
+                    alarm_date = 'some date'
 
                     lcd.lcd_display_string('Next alarm here'.format(hour, minute), 1)
-                    lcd.lcd_display_string('Date & time here', 2)
+                    lcd.lcd_display_string(alarm_date, 2)
 
                     if GPIO.input(16) == GPIO.HIGH:
+                        lcd.lcd_clear()
+
                         edit_mode = True
                         change_hour = True  # start by changing the hour field by default
                         change_minutes = False
