@@ -54,8 +54,6 @@ def display_alarm():
                 # If no alarm has been set ...
                 if not datetime_alarm:
 
-                    lcd.lcd_clear()
-
                     # Date & Time display
                     alarm_datetime = datetime.now() + timedelta(minutes=5)
                     new_alarm = alarm_datetime
@@ -120,7 +118,6 @@ def display_alarm():
 
                         # Leave edit mode:
                         if GPIO.input(16) == GPIO.HIGH:
-                            lcd.lcd_clear()
 
                             lcd.lcd_display_string('Confirm alarm?', 1)
                             lcd.lcd_display_string('Press SET', 2)
