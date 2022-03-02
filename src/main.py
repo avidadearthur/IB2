@@ -14,7 +14,7 @@ global ALARMS
 
 ALARMS = {}
 # ALARMS = { "24/02": ["06:00", "06:30"], "25/02": ["07:00", "07:30"], ... }
-ALARMS.update({"28-02": ["07:00", "07:30"]})
+ALARMS.update({"03-03": ["07:00", "07:30"]})
 
 
 def display_alarm():
