@@ -63,17 +63,7 @@ def display_alarm():
 
                     # Date & Time display
                     alarm_datetime = datetime.now() + timedelta(minutes=5)
-                    alarm_date = alarm_datetime.strftime('%a, %b %d %Y')
-                    alarm_time = alarm_datetime.strftime('%H:%M')
-
-                    # hour = int(alarm_time[0:2])
-                    # minute = int(alarm_time[3:])
-
-                    hour = alarm_datetime.hour
-                    minute = alarm_datetime.minute
-                    year = alarm_datetime.year
-                    month = alarm_datetime.month
-                    day = alarm_datetime.day
+                    new_alarm = alarm_datetime
 
                     lcd.lcd_display_string('No alarms set,', 1)
                     lcd.lcd_display_string('hit SET to add', 2)
@@ -89,18 +79,11 @@ def display_alarm():
 
                     print(datetime_alarm)
 
-                    alarm_datetime = datetime.now()
+                    alarm_datetime = datetime.now() + timedelta(minutes=5)
+                    new_alarm = alarm_datetime
 
-                    hour = alarm_datetime.hour
-                    minute = alarm_datetime.minute
-                    year = alarm_datetime.year
-                    month = alarm_datetime.month
-                    day = alarm_datetime.day
-
-                    alarm_date = 'some date'
-
-                    lcd.lcd_display_string('Next alarm here'.format(hour, minute), 1)
-                    lcd.lcd_display_string(alarm_date, 2)
+                    lcd.lcd_display_string('Nxt Alarm: {}'.format(new_alarm.strftime('%H:%M')), 1)
+                    lcd.lcd_display_string(new_alarm.strftime('%a, %b %d %Y'), 2)
 
                     if GPIO.input(16) == GPIO.HIGH:
                         lcd.lcd_clear()
@@ -113,11 +96,11 @@ def display_alarm():
 
                     while change_hour:
 
-                        # date in yyyy/mm/dd format
-                        new_alarm = datetime(year, month, day, hour, minute)
+                        # lcd.lcd_display_string('Nxt Alarm: {:02}:{:02}'.format(hour, minute), 1)
+                        # lcd.lcd_display_string('Date & time here', 2)
 
-                        lcd.lcd_display_string('Nxt Alarm: {:02}:{:02}'.format(hour, minute), 1)
-                        lcd.lcd_display_string('Date & time here', 2)
+                        lcd.lcd_display_string('Nxt Alarm: {}'.format(new_alarm.strftime('%H:%M')), 1)
+                        lcd.lcd_display_string(new_alarm.strftime('%a, %b %d %Y'), 2)
 
                         # Leave change_hour and go to change_minutes:
                         if GPIO.input(16) == GPIO.HIGH:
@@ -128,21 +111,17 @@ def display_alarm():
                             # Use UP and DOWN GPIOs to INCREMENT/DECREMENT value
                             # Arrow UP
                             if GPIO.input(15) == GPIO.HIGH:
-                                if hour < 24:
-                                    hour += 1
+                                new_alarm = new_alarm + timedelta(hours=1)
 
                             # Arrow DOWN
                             if GPIO.input(13) == GPIO.HIGH:
-                                if hour > 0 and new_alarm > alarm_datetime:
-                                    hour -= 1
+                                if new_alarm > alarm_datetime:
+                                    new_alarm = new_alarm - timedelta(hours=1)
 
                     while change_minutes:
 
-                        # date in yyyy/mm/dd format
-                        new_alarm = datetime(year, month, day, hour, minute)
-
-                        lcd.lcd_display_string('Nxt Alarm: {:02}:{:02}'.format(hour, minute), 1)
-                        lcd.lcd_display_string('Date & time here', 2)
+                        lcd.lcd_display_string('Nxt Alarm: {}'.format(new_alarm.strftime('%H:%M')), 1)
+                        lcd.lcd_display_string(new_alarm.strftime('%a, %b %d %Y'), 2)
 
                         # Leave edit mode:
                         if GPIO.input(16) == GPIO.HIGH:
@@ -155,13 +134,12 @@ def display_alarm():
                             # Use UP and DOWN GPIOs to INCREMENT/DECREMENT value
                             # Arrow UP
                             if GPIO.input(15) == GPIO.HIGH:
-                                if minute < 59:
-                                    minute += 1
+                                new_alarm = new_alarm + timedelta(minutes=1)
 
                             # Arrow DOWN
                             if GPIO.input(13) == GPIO.HIGH:
-                                if minute > 0 and new_alarm > alarm_datetime:
-                                    minute -= 1
+                                if new_alarm > alarm_datetime:
+                                    new_alarm = new_alarm + timedelta(minutes=1)
 
 
 def display_sensors():
