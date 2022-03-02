@@ -126,6 +126,9 @@ def display_alarm():
                                 lcd.lcd_display_string('Confirm alarm?', 1)
                                 lcd.lcd_display_string('Press SET', 2)
 
+                                # avoid bouncing
+                                sleep(0.5)
+
                                 if GPIO.input(16) == GPIO.HIGH:
                                     change_hour = False
                                     change_minutes = False
@@ -137,9 +140,8 @@ def display_alarm():
                                     connection = sqlite3.connect("../alarms.db")
                                     # cursor
                                     cursor = connection.cursor()
-                                    # another SQL command to insert the data in the table
-                                    sql_command = '''INSERT INTO emp VALUES (1, "Bill", "Gates",\
-                                    "M", "1980-10-28");'''
+                                    # add SQL command to push new alarm set
+                                    sql_command = ''' '''
                                     cursor.execute(sql_command)
 
                                     # To save the changes in the files. Never skip this.
