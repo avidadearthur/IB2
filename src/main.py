@@ -54,6 +54,8 @@ def display_alarm():
                 # If no alarm has been set ...
                 if not datetime_alarm:
 
+                    lcd.lcd_clear()
+
                     # Date & Time display
                     alarm_datetime = datetime.now() + timedelta(minutes=5)
                     new_alarm = alarm_datetime
@@ -118,11 +120,38 @@ def display_alarm():
 
                         # Leave edit mode:
                         if GPIO.input(16) == GPIO.HIGH:
-                            change_hour = False
-                            change_minutes = False
-                            edit_mode = False
+                            lcd.lcd_clear()
 
-                        # Update ALARM Dict
+                            lcd.lcd_display_string('Confirm alarm?', 1)
+                            lcd.lcd_display_string('Press SET', 2)
+
+                            if GPIO.input(16) == GPIO.HIGH:
+                                change_hour = False
+                                change_minutes = False
+                                edit_mode = False
+
+                                # Update Database
+                                # Connecting to the database
+                                connection = sqlite3.connect("../alarms.db")
+                                # cursor
+                                cursor = connection.cursor()
+                                # another SQL command to insert the data in the table
+                                sql_command = '''INSERT INTO emp VALUES (1, "Bill", "Gates",\
+                                "M", "1980-10-28");'''
+                                cursor.execute(sql_command)
+
+                                # To save the changes in the files. Never skip this.
+                                # If we skip this, nothing will be saved in the database.
+                                connection.commit()
+
+                                # Closing the connection
+                                connection.close()
+
+                            if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
+                                change_hour = False
+                                change_minutes = False
+                                edit_mode = False
+
                         else:
                             # Use UP and DOWN GPIOs to INCREMENT/DECREMENT value
                             # Arrow UP
