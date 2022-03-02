@@ -10,13 +10,6 @@ import threading
 import sqlite3
 import RPi.GPIO as GPIO
 
-# Dictionary of alarms
-global ALARMS
-
-ALARMS = {}
-# ALARMS = { "24/02": ["06:00", "06:30"], "25/02": ["07:00", "07:30"], ... }
-ALARMS.update({"28-02": ["07:00", "07:30"]})
-
 
 def display_alarm():
     lcd.lcd_clear()
@@ -139,7 +132,7 @@ def display_alarm():
                             # Arrow DOWN
                             if GPIO.input(13) == GPIO.HIGH:
                                 if new_alarm > alarm_datetime:
-                                    new_alarm = new_alarm + timedelta(minutes=1)
+                                    new_alarm = new_alarm - timedelta(minutes=1)
 
 
 def display_sensors():
