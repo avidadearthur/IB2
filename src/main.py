@@ -126,9 +126,6 @@ def display_alarm():
                                 lcd.lcd_display_string('Confirm alarm?', 1)
                                 lcd.lcd_display_string('Press SET', 2)
 
-                                # avoid bouncing
-                                sleep(0.5)
-
                                 if GPIO.input(16) == GPIO.HIGH:
                                     change_hour = False
                                     change_minutes = False
