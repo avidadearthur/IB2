@@ -61,11 +61,16 @@ def display_alarm():
                 # If no alarm has been set ...
                 if not datetime_alarm:
 
-                    hour = 0
-                    minute = 0
+                    # Date & Time display
+                    alarm_datetime = datetime.now() + timedelta(minutes=5)
+                    alarm_date = alarm_datetime.strftime('%a, %b %d %Y')
+                    alarm_time = alarm_datetime.strftime('%H:%M')
 
-                    lcd.lcd_display_string('No alarms set', 1)
-                    lcd.lcd_display_string('Hit SET to add', 2)
+                    hour = int(alarm_time[0:2])
+                    minute = int(alarm_time[3:])
+
+                    lcd.lcd_display_string('No alarms set,', 1)
+                    lcd.lcd_display_string('hit SET to add', 2)
 
                     # SET
                     if GPIO.input(16) == GPIO.HIGH:
