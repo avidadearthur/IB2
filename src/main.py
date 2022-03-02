@@ -119,35 +119,41 @@ def display_alarm():
                         # Leave edit mode:
                         if GPIO.input(16) == GPIO.HIGH:
 
-                            lcd.lcd_display_string('Confirm alarm?', 1)
-                            lcd.lcd_display_string('Press SET', 2)
+                            confirm = False
 
-                            if GPIO.input(16) == GPIO.HIGH:
-                                change_hour = False
-                                change_minutes = False
-                                edit_mode = False
+                            while not confirm:
 
-                                # Update Database
-                                # Connecting to the database
-                                connection = sqlite3.connect("../alarms.db")
-                                # cursor
-                                cursor = connection.cursor()
-                                # another SQL command to insert the data in the table
-                                sql_command = '''INSERT INTO emp VALUES (1, "Bill", "Gates",\
-                                "M", "1980-10-28");'''
-                                cursor.execute(sql_command)
+                                lcd.lcd_display_string('Confirm alarm?', 1)
+                                lcd.lcd_display_string('Press SET', 2)
 
-                                # To save the changes in the files. Never skip this.
-                                # If we skip this, nothing will be saved in the database.
-                                connection.commit()
+                                if GPIO.input(16) == GPIO.HIGH:
+                                    change_hour = False
+                                    change_minutes = False
+                                    edit_mode = False
+                                    confirm = True
 
-                                # Closing the connection
-                                connection.close()
+                                    # Update Database
+                                    # Connecting to the database
+                                    connection = sqlite3.connect("../alarms.db")
+                                    # cursor
+                                    cursor = connection.cursor()
+                                    # another SQL command to insert the data in the table
+                                    sql_command = '''INSERT INTO emp VALUES (1, "Bill", "Gates",\
+                                    "M", "1980-10-28");'''
+                                    cursor.execute(sql_command)
 
-                            if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
-                                change_hour = False
-                                change_minutes = False
-                                edit_mode = False
+                                    # To save the changes in the files. Never skip this.
+                                    # If we skip this, nothing will be saved in the database.
+                                    connection.commit()
+
+                                    # Closing the connection
+                                    connection.close()
+
+                                if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
+                                    change_hour = False
+                                    change_minutes = False
+                                    edit_mode = False
+                                    confirm = True
 
                         else:
                             # Use UP and DOWN GPIOs to INCREMENT/DECREMENT value
