@@ -118,8 +118,8 @@ def display_alarm():
 
                         # Leave edit mode:
                         if GPIO.input(16) == GPIO.HIGH:
-
                             confirm = False
+                            lcd.lcd_clear()
 
                             while not confirm:
 
