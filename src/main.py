@@ -128,8 +128,9 @@ def display_alarm():
                                     url = 'https://studev.groept.be/api/a21ib2b02/addalarm/{}/{}/{}/{}/NULL/0'.format(set_by,
                                                                                                                set_datetime,
                                                                                                                alarm_dtime,
-                                                                                                               make_coffee, )
+                                                                                                               make_coffee)
                                     response = requests.get(url)
+                                    print(url)
                                     print(response)
 
                                 if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
