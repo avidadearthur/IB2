@@ -71,7 +71,7 @@ def display_alarm():
                 else:
                     a = str(datetime_alarm[0][0])
                     print(a)
-                    print(a[:4], a[:4], a[5:7], a[8:10], a[11:])
+                    print(a[:4], a[:4], a[5:7], a[8:10], a[11:13], a[14:])
                     alarm_datetime = datetime(int(a[:4]), int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:]))
                     new_alarm = alarm_datetime
 
