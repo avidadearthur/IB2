@@ -137,7 +137,7 @@ def display_alarm():
                                     # add SQL command to push new alarm set
                                     alarm_str = new_alarm.strftime('%Y-%m-%d %H:%M')
                                     print(alarm_str)
-                                    sql_command = '''INSERT INTO alarm_schedule VALUES (DATE('now'), 'test_user', alarm_str, 0);'''
+                                    sql_command = '''INSERT INTO alarm_schedule VALUES (DATE('now'), 'test_user', :alarm_str, 0);'''
                                     cursor.execute(sql_command)
 
                                     # To save the changes in the files. Never skip this.
