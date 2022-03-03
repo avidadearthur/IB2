@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import lcddriver
 import sensors
 import threading
+import requests
 import sqlite3
 import RPi.GPIO as GPIO
 
@@ -37,21 +38,9 @@ def display_alarm():
                 change_minutes = False
 
                 # Connecting to the database
-                connection = sqlite3.connect("../alarms.db")
+                datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext')
 
-                # cursor
-                cursor = connection.cursor()
-
-                # Retrieve next alarm
-                cursor.execute('''SELECT alarm_datetime FROM alarm_schedule
-                WHERE alarm_datetime >= DATE('now')  ORDER BY alarm_datetime ASC LIMIT 1;''')
-
-                datetime_alarm = cursor.fetchall()
-
-                # print(datetime_alarm)
-
-                # Closing the connection
-                connection.close()
+                print(datetime_alarm)
 
                 # If no alarm has been set ...
                 if not datetime_alarm:
