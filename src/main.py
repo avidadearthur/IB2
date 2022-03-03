@@ -69,7 +69,7 @@ def display_alarm():
                         change_hour = True  # start by changing the hour field by default
                         change_minutes = False
                 else:
-                    a = datetime_alarm[0][0]
+                    a = str(datetime_alarm[0][0])
                     print(a)
                     print(a[:4], a[:4], a[5:7], a[8:11], a[11:])
                     alarm_datetime = datetime.now() + timedelta(minutes=5)
