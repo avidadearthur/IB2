@@ -40,8 +40,6 @@ def display_alarm():
                 # Connecting to the database
                 datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
 
-                print(datetime_alarm)
-
                 # If no alarm has been set ...
                 if not datetime_alarm:
 
@@ -63,7 +61,8 @@ def display_alarm():
                     a = str(datetime_alarm[0]['alarm_datetime'])
                     # print(a)
                     # print(a[:4], a[5:7], a[8:10], a[11:13], a[14:])
-                    alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]), int(a[17:]))
+                    alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
+                                              int(a[17:]))
                     new_alarm = alarm_datetime
 
                     lcd.lcd_display_string('Nxt Alarm: {}'.format(new_alarm.strftime('%H:%M')), 1)
@@ -122,21 +121,15 @@ def display_alarm():
 
                                     # Update Database
                                     # Connecting to the database
-                                    connection = sqlite3.connect("../alarms.db")
-                                    # cursor
-                                    cursor = connection.cursor()
-                                    # add SQL command to push new alarm set
-                                    alarm_str = new_alarm.strftime('%Y-%m-%d %H:%M')
-                                    print(alarm_str)
-                                    sql_command = '''INSERT INTO alarm_schedule VALUES (DATE('now'), 'test_user', ?, 0);'''
-                                    cursor.execute(sql_command, (alarm_str,))
-
-                                    # To save the changes in the files. Never skip this.
-                                    # If we skip this, nothing will be saved in the database.
-                                    connection.commit()
-
-                                    # Closing the connection
-                                    connection.close()
+                                    alarm_dtime = new_alarm.strftime('%Y-%m-%d %H:%M')
+                                    set_datetime = strftime('%Y-%m-%d %H:%M')
+                                    set_by = 'Rpi'
+                                    make_coffee = False
+                                    url = 'https://studev.groept.be/api/a21ib2b02/addalarm/{}/{}/{}/{}'.format(set_by,
+                                                                                                               set_datetime,
+                                                                                                               alarm_dtime,
+                                                                                                               make_coffee, )
+                                    requests.get(url)
 
                                 if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
                                     change_hour = False
