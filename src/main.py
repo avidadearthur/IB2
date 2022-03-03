@@ -38,7 +38,7 @@ def display_alarm():
                 change_minutes = False
 
                 # Connecting to the database
-                datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext')
+                datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
 
                 print(datetime_alarm)
 
