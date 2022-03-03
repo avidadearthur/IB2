@@ -70,7 +70,7 @@ def display_alarm():
                         change_minutes = False
                 else:
 
-                    print(datetime_alarm)
+                    print(datetime_alarm[0])
 
                     alarm_datetime = datetime.now() + timedelta(minutes=5)
                     new_alarm = alarm_datetime
