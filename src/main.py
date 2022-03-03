@@ -63,7 +63,7 @@ def display_alarm():
                     a = str(datetime_alarm[0]['alarm_datetime'])
                     # print(a)
                     # print(a[:4], a[5:7], a[8:10], a[11:13], a[14:])
-                    alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:]))
+                    alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]), int(a[15:00]))
                     new_alarm = alarm_datetime
 
                     lcd.lcd_display_string('Nxt Alarm: {}'.format(new_alarm.strftime('%H:%M')), 1)
