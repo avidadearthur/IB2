@@ -48,7 +48,7 @@ def display_alarm():
 
                 datetime_alarm = cursor.fetchall()
 
-                print(datetime_alarm)
+                # print(datetime_alarm)
 
                 # Closing the connection
                 connection.close()
@@ -72,8 +72,8 @@ def display_alarm():
                         change_minutes = False
                 else:
                     a = str(datetime_alarm[0][0])
-                    print(a)
-                    print(a[:4], a[5:7], a[8:10], a[11:13], a[14:])
+                    # print(a)
+                    # print(a[:4], a[5:7], a[8:10], a[11:13], a[14:])
                     alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:]))
                     new_alarm = alarm_datetime
 
