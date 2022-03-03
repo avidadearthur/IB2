@@ -89,9 +89,6 @@ def display_alarm():
 
                     while change_hour:
 
-                        # lcd.lcd_display_string('Nxt Alarm: {:02}:{:02}'.format(hour, minute), 1)
-                        # lcd.lcd_display_string('Date & time here', 2)
-
                         lcd.lcd_display_string('Nxt Alarm: {}'.format(new_alarm.strftime('%H:%M')), 1)
                         lcd.lcd_display_string(new_alarm.strftime('%a, %b %d %Y'), 2)
 
@@ -138,7 +135,9 @@ def display_alarm():
                                     # cursor
                                     cursor = connection.cursor()
                                     # add SQL command to push new alarm set
-                                    sql_command = ''' '''
+                                    print(new_alarm.strftime('%Y-%m-%d %H-%M'))
+                                    sql_command = '''INSERT INTO alarm_datetime VALUES (DATE('now'), 'test_user', 
+                                    new_alarm.strftime('%Y-%m-%d %H-%M'), 0);'''
                                     cursor.execute(sql_command)
 
                                     # To save the changes in the files. Never skip this.
