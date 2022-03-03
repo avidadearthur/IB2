@@ -135,9 +135,9 @@ def display_alarm():
                                     # cursor
                                     cursor = connection.cursor()
                                     # add SQL command to push new alarm set
-                                    print(new_alarm.strftime('%Y-%m-%d %H:%M'))
-                                    sql_command = '''INSERT INTO alarm_datetime VALUES (DATE('now'), 'test_user', 
-                                    new_alarm.strftime('%Y-%m-%d %H-%M'), 0);'''
+                                    alarm_str = new_alarm.strftime('%Y-%m-%d %H:%M')
+                                    print(alarm_str)
+                                    sql_command = '''INSERT INTO alarm_datetime VALUES (DATE('now'), 'test_user', alarm_str, 0);'''
                                     cursor.execute(sql_command)
 
                                     # To save the changes in the files. Never skip this.
