@@ -129,7 +129,8 @@ def display_alarm():
                                                                                                                set_datetime,
                                                                                                                alarm_dtime,
                                                                                                                make_coffee, )
-                                    requests.get(url)
+                                    response = requests.get(url)
+                                    print(response)
 
                                 if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
                                     change_hour = False
