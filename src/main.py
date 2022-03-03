@@ -125,7 +125,7 @@ def display_alarm():
                                     set_datetime = strftime('%Y-%m-%d %H:%M')
                                     set_by = 'Rpi'
                                     make_coffee = False
-                                    url = 'https://studev.groept.be/api/a21ib2b02/addalarm/{}/{}/{}/{}///'.format(set_by,
+                                    url = 'https://studev.groept.be/api/a21ib2b02/addalarm/{}/{}/{}/{}/NULL/0'.format(set_by,
                                                                                                                set_datetime,
                                                                                                                alarm_dtime,
                                                                                                                make_coffee, )
