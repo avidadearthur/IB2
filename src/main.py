@@ -48,6 +48,8 @@ def display_alarm():
 
                 datetime_alarm = cursor.fetchall()
 
+                print(datetime_alarm)
+
                 # Closing the connection
                 connection.close()
 
