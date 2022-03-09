@@ -10,7 +10,7 @@ import threading
 import requests
 import RPi.GPIO as GPIO
 
-from clock import display_clock
+from src.clock import display_clock
 
 
 def display_alarm():
@@ -261,26 +261,9 @@ if __name__ == "__main__":
 
             if "clock" not in [th.name for th in threading.enumerate()]:
                 print("Starting clock thread...")
-                print("Current Threads: ")
-                print([th.name for th in threading.enumerate()])
                 sleep(0.2)
-                display_clock(lcd)
-                #clock_thread = threading.Thread(target=display_clock(lcd), name="clock")
-                #clock_thread.start()
-
-            # Stop displaying
-            if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
-                try:
-                    #clock_thread.join()
-                    print("Stop display")
-                except RuntimeError:
-                    break
-
-                break
-
-            # RESET button
-            if GPIO.input(11) == GPIO.HIGH:
-                break
+                clock_thread = threading.Thread(target=display_clock, name="clock")
+                clock_thread.start()
 
         # 1 - Sensors Data
         elif abs(curr_state) == 1:
