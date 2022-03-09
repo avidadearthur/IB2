@@ -265,6 +265,19 @@ if __name__ == "__main__":
                 clock_thread = threading.Thread(target=display_clock(lcd), name="clock")
                 clock_thread.start()
 
+            # Stop displaying
+            if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
+                try:
+                    clock_thread.join()
+                except RuntimeError:
+                    break
+
+                break
+
+            # RESET button
+            if GPIO.input(11) == GPIO.HIGH:
+                break
+
         # 1 - Sensors Data
         elif abs(curr_state) == 1:
 
