@@ -1,7 +1,7 @@
 import threading
 import RPi.GPIO as GPIO
 from time import strftime
-from src.lcddriver import lcd
+from lcddriver import lcd
 
 GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # RESET GPIO17
 
