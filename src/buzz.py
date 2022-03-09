@@ -7,7 +7,7 @@ GPIO.setwarnings(False)
 # Select GPIO mode
 GPIO.setmode(GPIO.BCM)
 # Set buzzer - pin as output
-buzzer = 6
+buzzer = 12
 GPIO.setup(buzzer, GPIO.OUT)
 # Run forever loop
 while True:
