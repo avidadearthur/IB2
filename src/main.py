@@ -78,7 +78,6 @@ def display_alarm():
                 while edit_mode:
 
                     while change_hour:
-                        buffer.buff()
 
                         lcd.lcd_display_string('Nxt Alarm: {}'.format(new_alarm.strftime('%H:%M')), 1)
                         lcd.lcd_display_string(new_alarm.strftime('%a, %b %d %Y'), 2)
@@ -100,7 +99,6 @@ def display_alarm():
                                     new_alarm = new_alarm - timedelta(hours=1)
 
                     while change_minutes:
-                        buffer.buff()
 
                         lcd.lcd_display_string('Nxt Alarm: {}'.format(new_alarm.strftime('%H:%M')), 1)
                         lcd.lcd_display_string(new_alarm.strftime('%a, %b %d %Y'), 2)
