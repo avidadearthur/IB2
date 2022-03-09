@@ -261,6 +261,8 @@ if __name__ == "__main__":
 
             if "clock" not in [th.name for th in threading.enumerate()]:
                 print("Starting clock thread...")
+                print("Current Threads: ")
+                print([th.name for th in threading.enumerate()])
                 sleep(0.2)
                 display_clock(lcd)
                 #clock_thread = threading.Thread(target=display_clock(lcd), name="clock")
