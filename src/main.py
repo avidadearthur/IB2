@@ -12,6 +12,14 @@ import requests
 import RPi.GPIO as GPIO
 
 global next_alarm
+# Duplicate code that will be removed
+datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
+a = str(datetime_alarm[0]['alarm_datetime'])
+# print(a)
+# print(a[:4], a[5:7], a[8:10], a[11:13], a[14:])
+alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
+                          int(a[17:]))
+next_alarm = alarm_datetime
 
 
 def display_alarm():
@@ -317,9 +325,8 @@ if __name__ == "__main__":
 
         # X - Always check for the next alarm
         # count down and database push/pull code will probably come here
-        if next_alarm:
-            time_left = next_alarm - datetime.now()
-            print(time_left)
+        time_left = next_alarm - datetime.now()
+        print(time_left)
 
         # X - Always check ldr
 
