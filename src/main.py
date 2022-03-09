@@ -262,7 +262,7 @@ if __name__ == "__main__":
             if "clock" not in [th.name for th in threading.enumerate()]:
                 print("Starting clock thread...")
                 sleep(0.2)
-                clock_thread = threading.Thread(target=display_clock, name="clock")
+                clock_thread = threading.Thread(target=display_clock(lcd), name="clock")
                 clock_thread.start()
 
         # 1 - Sensors Data
