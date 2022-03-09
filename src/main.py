@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 
 import lcddriver
 import sensors
+import buffer
 import threading
 import requests
 import RPi.GPIO as GPIO
@@ -77,6 +78,7 @@ def display_alarm():
                 while edit_mode:
 
                     while change_hour:
+                        buffer.buff()
 
                         lcd.lcd_display_string('Nxt Alarm: {}'.format(new_alarm.strftime('%H:%M')), 1)
                         lcd.lcd_display_string(new_alarm.strftime('%a, %b %d %Y'), 2)
@@ -98,6 +100,7 @@ def display_alarm():
                                     new_alarm = new_alarm - timedelta(hours=1)
 
                     while change_minutes:
+                        buffer.buff()
 
                         lcd.lcd_display_string('Nxt Alarm: {}'.format(new_alarm.strftime('%H:%M')), 1)
                         lcd.lcd_display_string(new_alarm.strftime('%a, %b %d %Y'), 2)
@@ -105,7 +108,6 @@ def display_alarm():
                         # Leave edit mode:
                         if GPIO.input(16) == GPIO.HIGH:
                             confirm = False
-                            buff = True
                             lcd.lcd_clear()
 
                             while not confirm:
@@ -113,9 +115,7 @@ def display_alarm():
                                 lcd.lcd_display_string('Confirm alarm?', 1)
                                 lcd.lcd_display_string('Press SET', 2)
 
-                                while buff:
-                                    sleep(0.5)
-                                    buff = False
+                                buffer.buff()
 
                                 if GPIO.input(16) == GPIO.HIGH:
                                     change_hour = False
