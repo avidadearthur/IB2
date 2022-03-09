@@ -11,6 +11,8 @@ import threading
 import requests
 import RPi.GPIO as GPIO
 
+global next_alarm
+
 
 def display_alarm():
     lcd.lcd_clear()
@@ -64,6 +66,8 @@ def display_alarm():
                     alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
                                               int(a[17:]))
                     new_alarm = alarm_datetime
+
+                    next_alarm = new_alarm
 
                     lcd.lcd_display_string('Nxt Alarm: {}'.format(new_alarm.strftime('%H:%M')), 1)
                     lcd.lcd_display_string(new_alarm.strftime('%a, %b %d %Y'), 2)
@@ -120,6 +124,8 @@ def display_alarm():
                                     change_minutes = False
                                     edit_mode = False
                                     confirm = True
+
+                                    next_alarm = new_alarm
 
                                     # Update Database
                                     # Connecting to the database
@@ -311,6 +317,8 @@ if __name__ == "__main__":
 
         # X - Always check for the next alarm
         # count down and database push/pull code will probably come here
+        time_left = next_alarm - datetime.now()
+        print(time_left)
 
         # X - Always check ldr
 

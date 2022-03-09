@@ -10,6 +10,7 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="src.main.RPi" />
+          <option value="src.buzz.RPi" />
         </list>
       </option>
     </inspection_tool>
