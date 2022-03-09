@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import lcddriver
 import sensors
 import buffer
+import buzz
 import threading
 import requests
 import RPi.GPIO as GPIO
@@ -326,10 +327,13 @@ if __name__ == "__main__":
         # X - Always check for the next alarm
         # count down and database push/pull code will probably come here
         time_left = next_alarm - datetime.now()
-        print(time_left)
+        if time_left == 0:
+            buzz.set_buzz()
+            # RESET button
+            if GPIO.input(11) == GPIO.HIGH:
+                buzz.set_buzz(False)
 
         # X - Always check ldr
-
         # Define sensor channels
         light_channel = 1
 
