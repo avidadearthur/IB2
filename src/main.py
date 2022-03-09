@@ -262,13 +262,14 @@ if __name__ == "__main__":
             if "clock" not in [th.name for th in threading.enumerate()]:
                 print("Starting clock thread...")
                 sleep(0.2)
-                clock_thread = threading.Thread(target=display_clock(lcd), name="clock")
-                clock_thread.start()
+                display_clock(lcd)
+                #clock_thread = threading.Thread(target=display_clock(lcd), name="clock")
+                #clock_thread.start()
 
             # Stop displaying
             if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
                 try:
-                    clock_thread.join()
+                    #clock_thread.join()
                 except RuntimeError:
                     break
 
