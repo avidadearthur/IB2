@@ -186,9 +186,6 @@ def display_sensors():
             break
 
 
-
-
-
 if __name__ == "__main__":
 
     GPIO.setwarnings(False)  # Ignore warning for now
