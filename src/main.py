@@ -8,7 +8,6 @@ import lcddriver
 import sensors
 import threading
 import requests
-import sqlite3
 import RPi.GPIO as GPIO
 
 
@@ -124,7 +123,7 @@ def display_alarm():
                                     alarm_dtime = new_alarm.strftime('%Y-%m-%d %H:%M')
                                     set_datetime = strftime('%Y-%m-%d %H:%M')
                                     set_by = 'Rpi'
-                                    make_coffee = False
+                                    make_coffee = 0
                                     url = 'https://studev.groept.be/api/a21ib2b02/addalarm/{}/{}/{}/{}/NULL/0'.format(set_by,
                                                                                                                set_datetime,
                                                                                                                alarm_dtime,
