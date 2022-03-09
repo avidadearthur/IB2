@@ -10,8 +10,6 @@ import threading
 import requests
 import RPi.GPIO as GPIO
 
-from src.clock import display_clock
-
 
 def display_alarm():
     lcd.lcd_clear()
