@@ -95,7 +95,7 @@ def display_alarm():
 
                             # Arrow DOWN
                             if GPIO.input(13) == GPIO.HIGH:
-                                if new_alarm > datetime.now():
+                                if new_alarm - timedelta(hours=1) > datetime.now():
                                     new_alarm = new_alarm - timedelta(hours=1)
 
                     while change_minutes:
@@ -108,12 +108,12 @@ def display_alarm():
                             confirm = False
                             lcd.lcd_clear()
 
+                            buffer.buff()
+
                             while not confirm:
 
                                 lcd.lcd_display_string('Confirm alarm?', 1)
                                 lcd.lcd_display_string('Press SET', 2)
-
-                                buffer.buff()
 
                                 if GPIO.input(16) == GPIO.HIGH:
                                     change_hour = False
@@ -149,7 +149,7 @@ def display_alarm():
 
                             # Arrow DOWN
                             if GPIO.input(13) == GPIO.HIGH:
-                                if new_alarm > datetime.now():
+                                if new_alarm - timedelta(minutes=1) > datetime.now():
                                     new_alarm = new_alarm - timedelta(minutes=1)
 
 
