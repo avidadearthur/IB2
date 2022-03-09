@@ -270,6 +270,7 @@ if __name__ == "__main__":
             if GPIO.input(15) == GPIO.HIGH or GPIO.input(13) == GPIO.HIGH:
                 try:
                     #clock_thread.join()
+                    print("Stop display")
                 except RuntimeError:
                     break
 
