@@ -317,8 +317,9 @@ if __name__ == "__main__":
 
         # X - Always check for the next alarm
         # count down and database push/pull code will probably come here
-        time_left = next_alarm - datetime.now()
-        print(time_left)
+        if next_alarm:
+            time_left = next_alarm - datetime.now()
+            print(time_left)
 
         # X - Always check ldr
 
