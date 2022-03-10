@@ -1,18 +1,17 @@
-from time import sleep, strftime
 from datetime import datetime, timedelta
 
+today_plus_delta = datetime.now()
+now = datetime.now()
+seconds_to_new_query = (today_plus_delta - datetime.now()).total_seconds()
 
 while True:
     # get the date and time for now
-    now = datetime.now()
-
-    # get the current day at midnight
-    today = now.replace()
-
-    # get now plus 10 seconds
-    today_plus_delta = today + timedelta(seconds=10)
+    if seconds_to_new_query == 0:
+        now = datetime.now()
+        # get now plus 10 seconds
+        today_plus_delta = now + timedelta(seconds=10)
 
     # get the seconds from now until Tuesday at midnight
-    seconds_to_new_query = (today_plus_delta - now).total_seconds()
+    seconds_to_new_query = (today_plus_delta - datetime.now()).total_seconds()
 
     print(seconds_to_new_query)
