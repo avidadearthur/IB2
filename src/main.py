@@ -12,8 +12,6 @@ import threading
 import requests
 import RPi.GPIO as GPIO
 
-global next_alarm
-
 
 def set_buzz():
     # Disable warnings (optional)
@@ -273,6 +271,10 @@ if __name__ == "__main__":
     now = datetime.now()
     seconds_to_new_query = 0
     datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
+    a = str(datetime_alarm[0]['alarm_datetime'])
+    alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
+                              int(a[17:]))
+    next_alarm = alarm_datetime
 
     while True:
         # Use UP and DOWN GPIOs to move between states
@@ -364,17 +366,19 @@ if __name__ == "__main__":
             print("Sending query to database...")
             datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
 
-        # Duplicate code that will be removed
+            # Duplicate code that will be removed
+            if datetime_alarm:
+                a = str(datetime_alarm[0]['alarm_datetime'])
+                # print(a)
+                # print(a[:4], a[5:7], a[8:10], a[11:13], a[14:])
+                alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
+                                          int(a[17:]))
+                next_alarm = alarm_datetime
 
         if datetime_alarm:
-            a = str(datetime_alarm[0]['alarm_datetime'])
-            # print(a)
-            # print(a[:4], a[5:7], a[8:10], a[11:13], a[14:])
-            alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
-                                      int(a[17:]))
-            next_alarm = alarm_datetime
-
-        time_left = next_alarm - datetime.now()
+            time_left = next_alarm - datetime.now()
+        else:
+            time_left = 1
 
         if time_left == 0:
             if "buzz" not in [th.name for th in threading.enumerate()]:
