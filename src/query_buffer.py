@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 today_plus_delta = datetime.now()
 now = datetime.now()
-seconds_to_new_query = (today_plus_delta - datetime.now()).total_seconds()
+seconds_to_new_query = 0
 
 while True:
     # get the date and time for now
