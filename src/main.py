@@ -380,7 +380,7 @@ if __name__ == "__main__":
         time_left = alarm - datetime.now()
         print(time_left)
 
-        if time_left == 0:
+        if time_left < timedelta(seconds=0):
             if "buzz" not in [th.name for th in threading.enumerate()]:
                 print("Starting Sensors thread...")
                 sleep(0.2)
