@@ -17,6 +17,7 @@ curr = datetime.now()
 seconds_to_beep = 0
 
 while True:
+    print(seconds_to_beep)
     if seconds_to_beep < 0:
         GPIO.output(buzzer, GPIO.HIGH)
         curr = datetime.now()
