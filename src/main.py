@@ -30,12 +30,6 @@ def set_buzz():
 
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
-            try:
-                alarm_thread.join()
-            except RuntimeError:
-                break
-                # RESET button
-        if GPIO.input(11) == GPIO.HIGH:
             break
 
 
@@ -382,7 +376,7 @@ if __name__ == "__main__":
 
         if time_left < timedelta(seconds=0):
             if "buzz" not in [th.name for th in threading.enumerate()]:
-                print("Starting Sensors thread...")
+                print("Starting Buzzer thread...")
                 sleep(0.2)
                 buzzer_thread = threading.Thread(target=set_buzz, name="buzz")
                 buzzer_thread.start()
