@@ -17,14 +17,14 @@ curr = datetime.now()
 seconds_to_beep = 0
 
 while True:
+    curr = datetime.now()
+    # get now plus 10 seconds
+    curr_plus_delta = curr + timedelta(seconds=2)
+
     print(seconds_to_beep)
     while seconds_to_beep < 0.5:
         GPIO.output(buzzer, GPIO.HIGH)
         seconds_to_beep = (curr_plus_delta - datetime.now()).total_seconds()
-
-    curr = datetime.now()
-    # get now plus 10 seconds
-    curr_plus_delta = curr + timedelta(seconds=2)
 
     while seconds_to_beep > 0.5:
         GPIO.output(buzzer, GPIO.LOW)
