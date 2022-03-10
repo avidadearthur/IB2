@@ -31,7 +31,7 @@ def set_buzz():
             GPIO.output(buzzer, GPIO.HIGH)
             curr = datetime.now()
             # get now plus 10 seconds
-            curr_plus_delta = now + timedelta(seconds=0.5)
+            curr_plus_delta = curr + timedelta(seconds=0.5)
         elif seconds_to_beep < -0.5:
             GPIO.output(buzzer, GPIO.LOW)
 
