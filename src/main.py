@@ -17,7 +17,7 @@ def set_buzz():
     # Disable warnings (optional)
     GPIO.setwarnings(False)
     # Set buzzer - pin as output
-    buzzer = 12
+    buzzer = 6
     GPIO.setup(buzzer, GPIO.OUT)
 
     while True:
