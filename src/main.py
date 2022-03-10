@@ -22,14 +22,12 @@ def set_buzz():
 
     while True:
         GPIO.output(buzzer, GPIO.HIGH)
-        print("Beep")
         sleep(0.5)  # Delay in seconds
         GPIO.output(buzzer, GPIO.LOW)
-        print("No Beep")
         sleep(0.5)
 
         # RESET button
-        if GPIO.input(11) == GPIO.HIGH:
+        if GPIO.input(16) == GPIO.HIGH:
             GPIO.output(buzzer, GPIO.LOW)
             break
 
