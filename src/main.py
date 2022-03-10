@@ -7,20 +7,30 @@ from datetime import datetime, timedelta
 import lcddriver
 import sensors
 import buffer
-import buzz
+#import buzz
 import threading
 import requests
 import RPi.GPIO as GPIO
 
 global next_alarm
-# Duplicate code that will be removed
-datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
-a = str(datetime_alarm[0]['alarm_datetime'])
-# print(a)
-# print(a[:4], a[5:7], a[8:10], a[11:13], a[14:])
-alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
-                          int(a[17:]))
-next_alarm = alarm_datetime
+
+
+def set_buzz(beep=True):
+    # Disable warnings (optional)
+    GPIO.setwarnings(False)
+    # Select GPIO mode
+    GPIO.setmode(GPIO.BCM)
+    # Set buzzer - pin as output
+    buzzer = 12
+    GPIO.setup(buzzer, GPIO.OUT)
+
+    while beep:
+        GPIO.output(buzzer, GPIO.HIGH)
+        print("Beep")
+        sleep(0.5)  # Delay in seconds
+        GPIO.output(buzzer, GPIO.LOW)
+        print("No Beep")
+        sleep(0.5)
 
 
 def display_alarm():
@@ -142,10 +152,11 @@ def display_alarm():
                                     set_datetime = strftime('%Y-%m-%d %H:%M')
                                     set_by = 'Rpi'
                                     make_coffee = 0
-                                    url = 'https://studev.groept.be/api/a21ib2b02/addalarm/{}/{}/{}/{}/NULL/0'.format(set_by,
-                                                                                                               set_datetime,
-                                                                                                               alarm_dtime,
-                                                                                                               make_coffee)
+                                    url = 'https://studev.groept.be/api/a21ib2b02/addalarm/{}/{}/{}/{}/NULL/0'.format(
+                                        set_by,
+                                        set_datetime,
+                                        alarm_dtime,
+                                        make_coffee)
                                     response = requests.get(url)
                                     print(url)
                                     print(response)
@@ -248,6 +259,15 @@ if __name__ == "__main__":
     # 1 - Sensors Data
     # 2 - Alarm Set/Alarm Display
 
+    # Duplicate code that will be removed
+    datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
+    a = str(datetime_alarm[0]['alarm_datetime'])
+    # print(a)
+    # print(a[:4], a[5:7], a[8:10], a[11:13], a[14:])
+    alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
+                              int(a[17:]))
+    next_alarm = alarm_datetime
+
     curr_state = 0  # Set 0 as default state
     while True:
         # Use UP and DOWN GPIOs to move between states
@@ -328,10 +348,10 @@ if __name__ == "__main__":
         # count down and database push/pull code will probably come here
         time_left = next_alarm - datetime.now()
         if time_left == 0:
-            buzz.set_buzz()
+            set_buzz()
             # RESET button
             if GPIO.input(11) == GPIO.HIGH:
-                buzz.set_buzz(False)
+                set_buzz(False)
 
         # X - Always check ldr
         # Define sensor channels
