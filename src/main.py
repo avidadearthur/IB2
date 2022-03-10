@@ -275,9 +275,9 @@ if __name__ == "__main__":
         a = str(datetime_alarm[0]['alarm_datetime'])
         alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
                                   int(a[17:]))
-        next_alarm = alarm_datetime
+        alarm = alarm_datetime
     else:
-        next_alarm = 0
+        alarm = 0
 
     while True:
         # Use UP and DOWN GPIOs to move between states
@@ -364,7 +364,6 @@ if __name__ == "__main__":
 
         # get the seconds from now until Tuesday at midnight
         seconds_to_new_query = (today_plus_delta - datetime.now()).total_seconds()
-        print(seconds_to_new_query)
 
         if not seconds_to_new_query:
             print("Sending query to database...")
@@ -377,12 +376,9 @@ if __name__ == "__main__":
                 # print(a[:4], a[5:7], a[8:10], a[11:13], a[14:])
                 alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
                                           int(a[17:]))
-                next_alarm = alarm_datetime
+                alarm = alarm_datetime
 
-        if datetime_alarm:
-            time_left = next_alarm - datetime.now()
-        else:
-            time_left = 1
+        time_left = alarm - datetime.now()
         print(time_left)
 
         if time_left == 0:
