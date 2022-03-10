@@ -30,6 +30,7 @@ def set_buzz():
 
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
+            GPIO.output(buzzer, GPIO.LOW)
             break
 
 
@@ -380,6 +381,11 @@ if __name__ == "__main__":
                 sleep(0.2)
                 buzzer_thread = threading.Thread(target=set_buzz, name="buzz")
                 buzzer_thread.start()
+
+        if "buzz" in [th.name for th in threading.enumerate()]:
+            # RESET button
+            if GPIO.input(11) == GPIO.HIGH:
+                GPIO.output(32, GPIO.LOW)
 
         # X - Always check ldr
         # Define sensor channels
