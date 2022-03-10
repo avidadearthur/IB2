@@ -27,7 +27,7 @@ def set_buzz():
         sleep(0.5)
 
         # RESET button
-        if GPIO.input(16) == GPIO.HIGH:
+        if GPIO.input(11) == GPIO.HIGH:
             GPIO.output(buzzer, GPIO.LOW)
             break
 
@@ -382,7 +382,7 @@ if __name__ == "__main__":
 
         if "buzz" in [th.name for th in threading.enumerate()]:
             # RESET button
-            if GPIO.input(16) == GPIO.HIGH:
+            if GPIO.input(11) == GPIO.HIGH:
                 GPIO.output(32, GPIO.LOW)
 
         # X - Always check ldr
