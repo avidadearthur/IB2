@@ -7,7 +7,7 @@ while True:
     now = datetime.now()
 
     # get the current day at midnight
-    today = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    today = now.replace()
 
     # get now plus 10 seconds
     today_plus_delta = today + timedelta(seconds=10)
