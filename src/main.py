@@ -364,6 +364,7 @@ if __name__ == "__main__":
 
         # get the seconds from now until Tuesday at midnight
         seconds_to_new_query = (today_plus_delta - datetime.now()).total_seconds()
+        print(seconds_to_new_query)
 
         if not seconds_to_new_query:
             print("Sending query to database...")
@@ -382,6 +383,7 @@ if __name__ == "__main__":
             time_left = next_alarm - datetime.now()
         else:
             time_left = 1
+        print(time_left)
 
         if time_left == 0:
             if "buzz" not in [th.name for th in threading.enumerate()]:
