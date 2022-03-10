@@ -9,6 +9,7 @@ GPIO.setmode(GPIO.BOARD)  # Use physical pin numbering
 # Set buzzer - pin as output
 buzzer = 32
 GPIO.setup(buzzer, GPIO.OUT)
+GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # RESET GPIO17
 
 # Buzzer sleep parameters
 curr_plus_delta = datetime.now()
