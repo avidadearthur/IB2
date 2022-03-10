@@ -271,10 +271,13 @@ if __name__ == "__main__":
     now = datetime.now()
     seconds_to_new_query = 0
     datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
-    a = str(datetime_alarm[0]['alarm_datetime'])
-    alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
-                              int(a[17:]))
-    next_alarm = alarm_datetime
+    if datetime_alarm:
+        a = str(datetime_alarm[0]['alarm_datetime'])
+        alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
+                                  int(a[17:]))
+        next_alarm = alarm_datetime
+    else:
+        next_alarm = 0
 
     while True:
         # Use UP and DOWN GPIOs to move between states
