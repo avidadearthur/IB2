@@ -359,7 +359,6 @@ if __name__ == "__main__":
         # get the date and time for now
 
         seconds_to_new_query = (today_plus_delta - datetime.now()).total_seconds()
-        print(seconds_to_new_query)
 
         if seconds_to_new_query < 0:
             print("Sending query to database...")
@@ -381,7 +380,7 @@ if __name__ == "__main__":
         time_left = alarm - datetime.now()
         print(time_left)
 
-        if time_left == 0 and datetime_alarm:
+        if time_left == 0:
             if "buzz" not in [th.name for th in threading.enumerate()]:
                 print("Starting Sensors thread...")
                 sleep(0.2)
