@@ -364,8 +364,9 @@ if __name__ == "__main__":
 
         # get the seconds from now until Tuesday at midnight
         seconds_to_new_query = (today_plus_delta - datetime.now()).total_seconds()
+        print(seconds_to_new_query)
 
-        if not seconds_to_new_query:
+        if seconds_to_new_query == 0:
             print("Sending query to database...")
             datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
 
