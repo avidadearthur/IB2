@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 import lcddriver
 import sensors
 import buffer
-#import buzz
+# import buzz
 import threading
 import requests
 import RPi.GPIO as GPIO
@@ -16,7 +16,6 @@ global next_alarm
 
 
 def set_buzz():
-
     # Disable warnings (optional)
     GPIO.setwarnings(False)
     # Select GPIO mode
@@ -269,6 +268,12 @@ if __name__ == "__main__":
 
     curr_state = 0  # Set 0 as default state
 
+    # Query buffer start parameters
+    today_plus_delta = datetime.now()
+    now = datetime.now()
+    seconds_to_new_query = 0
+    datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
+
     while True:
         # Use UP and DOWN GPIOs to move between states
         # Arrow UP
@@ -346,9 +351,21 @@ if __name__ == "__main__":
 
         # X - Always check for the next alarm
         # count down and database push/pull code will probably come here
+        # get the date and time for now
+        if seconds_to_new_query < 0:
+            now = datetime.now()
+            # get now plus 10 seconds
+            today_plus_delta = now + timedelta(seconds=10)
+
+        # get the seconds from now until Tuesday at midnight
+        seconds_to_new_query = (today_plus_delta - datetime.now()).total_seconds()
+
+        if not seconds_to_new_query:
+            print("Sending query to database...")
+            datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
 
         # Duplicate code that will be removed
-        datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
+
         if datetime_alarm:
             a = str(datetime_alarm[0]['alarm_datetime'])
             # print(a)
@@ -358,6 +375,7 @@ if __name__ == "__main__":
             next_alarm = alarm_datetime
 
         time_left = next_alarm - datetime.now()
+
         if time_left == 0:
             if "buzz" not in [th.name for th in threading.enumerate()]:
                 print("Starting Sensors thread...")
