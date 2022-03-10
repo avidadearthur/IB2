@@ -9,7 +9,7 @@ while True:
     if seconds_to_new_query < 0:
         now = datetime.now()
         # get now plus 10 seconds
-        today_plus_delta = now + timedelta(seconds=3)
+        today_plus_delta = now + timedelta(seconds=10)
 
     # get the seconds from now until Tuesday at midnight
     seconds_to_new_query = (today_plus_delta - datetime.now()).total_seconds()
