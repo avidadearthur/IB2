@@ -357,16 +357,11 @@ if __name__ == "__main__":
         # X - Always check for the next alarm
         # count down and database push/pull code will probably come here
         # get the date and time for now
-        if seconds_to_new_query < 0:
-            now = datetime.now()
-            # get now plus 10 seconds
-            today_plus_delta = now + timedelta(seconds=10)
 
-        # get the seconds from now until Tuesday at midnight
         seconds_to_new_query = (today_plus_delta - datetime.now()).total_seconds()
         print(seconds_to_new_query)
 
-        if seconds_to_new_query == 0:
+        if seconds_to_new_query < 0:
             print("Sending query to database...")
             datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
 
@@ -378,6 +373,10 @@ if __name__ == "__main__":
                 alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
                                           int(a[17:]))
                 alarm = alarm_datetime
+
+            now = datetime.now()
+            # get now plus 10 seconds
+            today_plus_delta = now + timedelta(seconds=10)
 
         time_left = alarm - datetime.now()
         print(time_left)
