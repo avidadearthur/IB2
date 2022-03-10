@@ -34,6 +34,9 @@ def set_buzz():
                 alarm_thread.join()
             except RuntimeError:
                 break
+                # RESET button
+        if GPIO.input(11) == GPIO.HIGH:
+            break
 
 
 def display_alarm():
