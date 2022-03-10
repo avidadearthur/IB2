@@ -16,8 +16,6 @@ import RPi.GPIO as GPIO
 def set_buzz():
     # Disable warnings (optional)
     GPIO.setwarnings(False)
-    # Select GPIO mode
-    GPIO.setmode(GPIO.BCM)
     # Set buzzer - pin as output
     buzzer = 12
     GPIO.setup(buzzer, GPIO.OUT)
