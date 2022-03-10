@@ -267,16 +267,8 @@ if __name__ == "__main__":
     # 1 - Sensors Data
     # 2 - Alarm Set/Alarm Display
 
-    # Duplicate code that will be removed
-    datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
-    a = str(datetime_alarm[0]['alarm_datetime'])
-    # print(a)
-    # print(a[:4], a[5:7], a[8:10], a[11:13], a[14:])
-    alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
-                              int(a[17:]))
-    next_alarm = alarm_datetime
-
     curr_state = 0  # Set 0 as default state
+
     while True:
         # Use UP and DOWN GPIOs to move between states
         # Arrow UP
@@ -354,6 +346,17 @@ if __name__ == "__main__":
 
         # X - Always check for the next alarm
         # count down and database push/pull code will probably come here
+
+        # Duplicate code that will be removed
+        datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
+        if datetime_alarm:
+            a = str(datetime_alarm[0]['alarm_datetime'])
+            # print(a)
+            # print(a[:4], a[5:7], a[8:10], a[11:13], a[14:])
+            alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
+                                      int(a[17:]))
+            next_alarm = alarm_datetime
+
         time_left = next_alarm - datetime.now()
         if time_left == 0:
             if "buzz" not in [th.name for th in threading.enumerate()]:
