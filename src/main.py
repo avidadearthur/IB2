@@ -277,7 +277,7 @@ if __name__ == "__main__":
                                   int(a[17:]))
         alarm = alarm_datetime
     else:
-        alarm = 0
+        alarm = datetime.now()
 
     while True:
         # Use UP and DOWN GPIOs to move between states
@@ -381,7 +381,7 @@ if __name__ == "__main__":
         time_left = alarm - datetime.now()
         print(time_left)
 
-        if time_left == 0:
+        if time_left == 0 and datetime_alarm:
             if "buzz" not in [th.name for th in threading.enumerate()]:
                 print("Starting Sensors thread...")
                 sleep(0.2)
