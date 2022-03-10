@@ -15,7 +15,8 @@ import RPi.GPIO as GPIO
 global next_alarm
 
 
-def set_buzz(beep=True):
+def set_buzz():
+
     # Disable warnings (optional)
     GPIO.setwarnings(False)
     # Select GPIO mode
@@ -24,13 +25,20 @@ def set_buzz(beep=True):
     buzzer = 12
     GPIO.setup(buzzer, GPIO.OUT)
 
-    while beep:
+    while True:
         GPIO.output(buzzer, GPIO.HIGH)
         print("Beep")
         sleep(0.5)  # Delay in seconds
         GPIO.output(buzzer, GPIO.LOW)
         print("No Beep")
         sleep(0.5)
+
+        # RESET button
+        if GPIO.input(11) == GPIO.HIGH:
+            try:
+                alarm_thread.join()
+            except RuntimeError:
+                break
 
 
 def display_alarm():
@@ -348,10 +356,11 @@ if __name__ == "__main__":
         # count down and database push/pull code will probably come here
         time_left = next_alarm - datetime.now()
         if time_left == 0:
-            set_buzz()
-            # RESET button
-            if GPIO.input(11) == GPIO.HIGH:
-                set_buzz(False)
+            if "buzz" not in [th.name for th in threading.enumerate()]:
+                print("Starting Sensors thread...")
+                sleep(0.2)
+                buzzer_thread = threading.Thread(target=set_buzz, name="buzz")
+                buzzer_thread.start()
 
         # X - Always check ldr
         # Define sensor channels
