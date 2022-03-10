@@ -378,7 +378,6 @@ if __name__ == "__main__":
             today_plus_delta = now + timedelta(seconds=30)
 
         time_left = alarm - datetime.now()
-        print(time_left)
 
         if time_left < timedelta(seconds=0):
             if "buzz" not in [th.name for th in threading.enumerate()]:
