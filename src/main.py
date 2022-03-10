@@ -375,7 +375,7 @@ if __name__ == "__main__":
 
             now = datetime.now()
             # get now plus 10 seconds
-            today_plus_delta = now + timedelta(seconds=10)
+            today_plus_delta = now + timedelta(seconds=30)
 
         time_left = alarm - datetime.now()
         print(time_left)
