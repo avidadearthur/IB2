@@ -7,7 +7,7 @@ GPIO.setwarnings(False)
 # Select GPIO mode
 GPIO.setmode(GPIO.BOARD)
 # Set buzzer - pin as output
-buzzer = 31
+buzzer = 32
 GPIO.setup(buzzer, GPIO.OUT)
 
 while True:
