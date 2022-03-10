@@ -5,7 +5,7 @@ from time import sleep
 # Disable warnings (optional)
 GPIO.setwarnings(False)
 # Select GPIO mode
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 # Set buzzer - pin as output
 buzzer = 12
 GPIO.setup(buzzer, GPIO.OUT)
