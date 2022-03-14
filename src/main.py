@@ -282,7 +282,7 @@ if __name__ == "__main__":
                                   int(a[17:]))
         alarm = alarm_datetime
     else:
-        alarm = datetime.now()
+        alarm = datetime.now() + timedelta(days=365)
 
     while True:
         # Use UP and DOWN GPIOs to move between states
