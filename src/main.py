@@ -381,6 +381,7 @@ if __name__ == "__main__":
                 buzzer_thread.start()
 
         if "buzz" in [th.name for th in threading.enumerate()]:
+            print("buzz thread still running")
             # RESET button
             if GPIO.input(11) == GPIO.HIGH:
                 GPIO.output(32, GPIO.LOW)
