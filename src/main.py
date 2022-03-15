@@ -28,6 +28,7 @@ def set_buzz():
 
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
+            print("Break set_buzz loop")
             GPIO.output(buzzer, GPIO.LOW)
             break
 
@@ -317,6 +318,7 @@ if __name__ == "__main__":
 
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
+            print("Break main thread")
             break
 
         # 0 - Clock Date & Time
