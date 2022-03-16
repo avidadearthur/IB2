@@ -13,22 +13,22 @@ import requests
 import RPi.GPIO as GPIO
 
 
-def set_buzz(alarm_set=True):
+def set_buzz():
     # Disable warnings (optional)
     GPIO.setwarnings(False)
     # Set buzzer - pin as output
     buzzer = 32
     GPIO.setup(buzzer, GPIO.OUT)
+    global stop_alarm
 
-    while alarm_set:
+    while not stop_alarm:
         sleep(0.5)
         GPIO.output(buzzer, GPIO.HIGH)
-        curr = datetime.now()
-        curr_plus_delta = curr + timedelta(seconds=0.5)
         sleep(0.5)
         GPIO.output(buzzer, GPIO.LOW)
+        if stop_alarm:
+            break
 
-        seconds_to_beep = (curr_plus_delta - datetime.now()).total_seconds()
 
 
 def display_alarm():
@@ -317,12 +317,7 @@ if __name__ == "__main__":
         if GPIO.input(11) == GPIO.HIGH:
             if "buzz" in [th.name for th in threading.enumerate()]:
                 print("Buzzer reset from Main Thread")
-                try:
-                    buzzer_thread.join()
-                except RuntimeError:
-                    print("Attempt to join Thread threw exception")
-                set_buzz(False)
-
+                stop_alarm = True
             break
 
         # 0 - Clock Date & Time
@@ -383,6 +378,7 @@ if __name__ == "__main__":
                 print("Starting Buzzer thread...")
                 sleep(0.2)
                 buzzer_thread = threading.Thread(target=set_buzz, name="buzz")
+                stop_alarm = False
                 buzzer_thread.start()
 
         # X - Always check ldr
