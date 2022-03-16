@@ -22,9 +22,17 @@ def set_buzz():
     global stop_alarm
 
     while not stop_alarm:
+        if stop_alarm:
+            break
         sleep(0.5)
+        if stop_alarm:
+            break
         GPIO.output(buzzer, GPIO.HIGH)
+        if stop_alarm:
+            break
         sleep(0.5)
+        if stop_alarm:
+            break
         GPIO.output(buzzer, GPIO.LOW)
         if stop_alarm:
             break
@@ -316,8 +324,6 @@ if __name__ == "__main__":
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
             if "buzz" in [th.name for th in threading.enumerate()]:
-                print("Stopping buzzer...")
-                print("Stopping buzzer...")
                 stop_alarm = True
 
         # 0 - Clock Date & Time
