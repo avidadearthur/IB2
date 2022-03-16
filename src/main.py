@@ -37,6 +37,7 @@ def set_buzz():
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
             print("Buzzer reset from set_buzz")
+            buzzer_thread.join()
             break
 
 
@@ -325,9 +326,13 @@ if __name__ == "__main__":
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
             if "buzz" in [th.name for th in threading.enumerate()]:
-                print("Turning off buzzer thread...")
+                print("Current Threads: ")
+                print([th.name for th in threading.enumerate()])
+                print(curr_state)
                 sleep(0.2)
                 buzzer_thread.join()
+                print([th.name for th in threading.enumerate()])
+                print(curr_state)
                 break
             break
 
