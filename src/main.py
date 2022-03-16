@@ -318,7 +318,6 @@ if __name__ == "__main__":
             if "buzz" in [th.name for th in threading.enumerate()]:
                 print("Buzzer reset from Main Thread")
                 stop_alarm = True
-            break
 
         # 0 - Clock Date & Time
         if abs(curr_state) == 0:
