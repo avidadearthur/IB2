@@ -37,8 +37,10 @@ def set_buzz():
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
             print("Buzzer reset from set_buzz")
-            buzzer_thread.join()
-            break
+            try:
+                buzzer_thread.join()
+            except RuntimeError:
+                break
 
 
 def display_alarm():
@@ -328,11 +330,9 @@ if __name__ == "__main__":
             if "buzz" in [th.name for th in threading.enumerate()]:
                 print("Current Threads: ")
                 print([th.name for th in threading.enumerate()])
-                print(curr_state)
                 sleep(0.2)
                 buzzer_thread.join()
                 print([th.name for th in threading.enumerate()])
-                print(curr_state)
                 break
             break
 
