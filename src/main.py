@@ -353,8 +353,8 @@ if __name__ == "__main__":
 
         seconds_to_new_query = (today_plus_delta - datetime.now()).total_seconds()
 
-        if "buzz" in [th.name for th in threading.enumerate()] and stop_alarm:
-            seconds_to_new_query = -1
+        # if "buzz" in [th.name for th in threading.enumerate()] and stop_alarm:
+        #     seconds_to_new_query = -1
 
         if seconds_to_new_query < 0:
             print("Sending query to database...")
@@ -374,10 +374,8 @@ if __name__ == "__main__":
 
         time_left = alarm - datetime.now()
 
-
-
-        if time_left < timedelta(seconds=0):
-            if "buzz" not in [th.name for th in threading.enumerate()]:
+        if "buzz" not in [th.name for th in threading.enumerate()]:
+            if time_left < timedelta(seconds=0):
                 print("Starting Buzzer thread...")
                 sleep(0.2)
                 buzzer_thread = threading.Thread(target=set_buzz, name="buzz")
