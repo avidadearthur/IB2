@@ -28,9 +28,7 @@ def set_buzz():
         GPIO.output(buzzer, GPIO.LOW)
         if stop_alarm:
             GPIO.output(buzzer, GPIO.LOW)
-            buzzer_thread.join()
             break
-
 
 
 def display_alarm():
