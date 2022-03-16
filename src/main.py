@@ -21,11 +21,9 @@ def set_buzz():
     GPIO.setup(buzzer, GPIO.OUT)
 
     # Buzzer sleep parameters
-    curr_plus_delta = datetime.now()
-    curr = datetime.now()
-    seconds_to_beep = 0
+    alarm_set = True;
 
-    while True:
+    while alarm_set:
         sleep(0.5)
         GPIO.output(buzzer, GPIO.HIGH)
         curr = datetime.now()
@@ -40,7 +38,7 @@ def set_buzz():
             try:
                 buzzer_thread.join()
             except RuntimeError:
-                break
+                alarm_set = False
 
 
 def display_alarm():
