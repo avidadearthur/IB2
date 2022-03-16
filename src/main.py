@@ -27,20 +27,14 @@ def set_buzz():
 
     while True:
 
-        if seconds_to_beep < 0:
-            GPIO.output(buzzer, GPIO.HIGH)
-            curr = datetime.now()
-            # get now plus 10 seconds
-            curr_plus_delta = curr + timedelta(seconds=0.5)
-        elif seconds_to_beep < -0.5:
-            GPIO.output(buzzer, GPIO.LOW)
+        sleep(0.5)
+        GPIO.output(buzzer, GPIO.HIGH)
+        curr = datetime.now()
+        curr_plus_delta = curr + timedelta(seconds=0.5)
+        sleep(0.5)
+        GPIO.output(buzzer, GPIO.LOW)
 
         seconds_to_beep = (curr_plus_delta - datetime.now()).total_seconds()
-
-        # RESET button
-        if GPIO.input(11) == GPIO.HIGH:
-            GPIO.output(buzzer, GPIO.LOW)
-            break
 
 
 def display_alarm():
@@ -328,6 +322,14 @@ if __name__ == "__main__":
 
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
+            if "buzz" in [th.name for th in threading.enumerate()]:
+                print("Turning off buzzer thread...")
+                sleep(0.2)
+                GPIO.output(32, GPIO.LOW)
+                try:
+                    buzzer_thread.join()
+                except RuntimeError:
+                    break
             break
 
         # 0 - Clock Date & Time
@@ -390,11 +392,6 @@ if __name__ == "__main__":
                 sleep(0.2)
                 buzzer_thread = threading.Thread(target=set_buzz, name="buzz")
                 buzzer_thread.start()
-
-        if "buzz" in [th.name for th in threading.enumerate()]:
-            # RESET button
-            if GPIO.input(11) == GPIO.HIGH:
-                GPIO.output(32, GPIO.LOW)
 
         # X - Always check ldr
         # Define sensor channels
