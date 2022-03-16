@@ -13,15 +13,12 @@ import requests
 import RPi.GPIO as GPIO
 
 
-def set_buzz():
+def set_buzz(alarm_set=True):
     # Disable warnings (optional)
     GPIO.setwarnings(False)
     # Set buzzer - pin as output
     buzzer = 32
     GPIO.setup(buzzer, GPIO.OUT)
-
-    # Buzzer sleep parameters
-    alarm_set = True;
 
     while alarm_set:
         sleep(0.5)
