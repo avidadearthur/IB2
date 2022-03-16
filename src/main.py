@@ -354,7 +354,7 @@ if __name__ == "__main__":
         seconds_to_new_query = (today_plus_delta - datetime.now()).total_seconds()
 
         if "buzz" in [th.name for th in threading.enumerate()] and stop_alarm:
-            print(stop_alarm)
+            seconds_to_new_query = -1
 
         if seconds_to_new_query < 0:
             print("Sending query to database...")
