@@ -317,6 +317,7 @@ if __name__ == "__main__":
         if GPIO.input(11) == GPIO.HIGH:
             if "buzz" in [th.name for th in threading.enumerate()]:
                 print("Stopping buzzer...")
+                print("Stopping buzzer...")
                 stop_alarm = True
 
         # 0 - Clock Date & Time
