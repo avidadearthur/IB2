@@ -316,7 +316,7 @@ if __name__ == "__main__":
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
             if "buzz" in [th.name for th in threading.enumerate()]:
-                sleep(0.2)
+                print("Stopping buzzer...")
                 stop_alarm = True
 
         # 0 - Clock Date & Time
