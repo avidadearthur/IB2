@@ -21,7 +21,7 @@ def set_buzz():
     GPIO.setup(buzzer, GPIO.OUT)
     global stop_alarm
 
-    while not stop_alarm:
+    while True:
         if stop_alarm:
             break
         sleep(0.5)
