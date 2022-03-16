@@ -28,6 +28,7 @@ def set_buzz():
         GPIO.output(buzzer, GPIO.LOW)
         if stop_alarm:
             GPIO.output(buzzer, GPIO.LOW)
+            buzzer_thread.join()
             break
 
 
@@ -317,9 +318,7 @@ if __name__ == "__main__":
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
             if "buzz" in [th.name for th in threading.enumerate()]:
-                sleep(0.2)
                 stop_alarm = True
-                sleep(0.2)
 
         # 0 - Clock Date & Time
         if abs(curr_state) == 0:
@@ -373,6 +372,9 @@ if __name__ == "__main__":
             today_plus_delta = now + timedelta(seconds=30)
 
         time_left = alarm - datetime.now()
+
+        if "buzz" in [th.name for th in threading.enumerate()]:
+            time_left = -1
 
         if time_left < timedelta(seconds=0):
             if "buzz" not in [th.name for th in threading.enumerate()]:
