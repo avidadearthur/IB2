@@ -109,6 +109,7 @@ def display_alarm():
 
                         # Leave change_hour and go to change_minutes:
                         if GPIO.input(16) == GPIO.HIGH:
+                            lcd.lcd_clear()
                             change_hour = False
                             change_minutes = True
 
