@@ -272,8 +272,7 @@ if __name__ == "__main__":
     datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
     if datetime_alarm:
         a = str(datetime_alarm[0]['alarm_datetime'])
-        alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]),
-                                  int(a[17:]))
+        alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]))
         alarm = alarm_datetime
     else:
         alarm = datetime.now() + timedelta(days=365)
