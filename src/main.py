@@ -327,14 +327,8 @@ if __name__ == "__main__":
 
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
-            if "buzz" in [th.name for th in threading.enumerate()]:
-                print("Current Threads: ")
-                print([th.name for th in threading.enumerate()])
-                sleep(0.2)
-                buzzer_thread.join()
-                print([th.name for th in threading.enumerate()])
+            if "buzz" not in [th.name for th in threading.enumerate()]:
                 break
-            break
 
         # 0 - Clock Date & Time
         if abs(curr_state) == 0:
