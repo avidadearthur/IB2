@@ -29,13 +29,6 @@ def set_buzz(alarm_set=True):
         GPIO.output(buzzer, GPIO.LOW)
 
         seconds_to_beep = (curr_plus_delta - datetime.now()).total_seconds()
-        # RESET button
-        if GPIO.input(11) == GPIO.HIGH:
-            print("Buzzer reset from set_buzz")
-            try:
-                buzzer_thread.join()
-            except RuntimeError:
-                alarm_set = False
 
 
 def display_alarm():
@@ -322,8 +315,15 @@ if __name__ == "__main__":
 
         # RESET button
         if GPIO.input(11) == GPIO.HIGH:
-            if "buzz" not in [th.name for th in threading.enumerate()]:
-                break
+            if "buzz" in [th.name for th in threading.enumerate()]:
+                print("Buzzer reset from Main Thread")
+                try:
+                    buzzer_thread.join()
+                except RuntimeError:
+                    print("Attempt to join Thread threw exception")
+                set_buzz(False)
+
+            break
 
         # 0 - Clock Date & Time
         if abs(curr_state) == 0:
