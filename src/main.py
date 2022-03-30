@@ -377,7 +377,7 @@ if __name__ == "__main__":
         time_left = alarm - datetime.now()
 
         if "buzz" not in [th.name for th in threading.enumerate()]:
-            if time_left < timedelta(seconds=0) and not stop_alarm:
+            if time_left < timedelta(seconds=0) and not stop_alarm and len(datetime_alarm) != 0:
                 print("Starting Buzzer thread...")
                 sleep(0.2)
                 buzzer_thread = threading.Thread(target=set_buzz, name="buzz")
