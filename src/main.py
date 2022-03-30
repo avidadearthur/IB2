@@ -364,9 +364,8 @@ if __name__ == "__main__":
             print(datetime_alarm)
 
             # Duplicate code that will be removed
-            if datetime_alarm:
+            if len(datetime_alarm) != 0:
                 a = str(datetime_alarm[0]['alarm_datetime'])
-                # print(a)
                 # print(a[:4], a[5:7], a[8:10], a[11:13], a[14:])
                 alarm_datetime = datetime(int(a[:4]), int(a[5:7]), int(a[8:10]), int(a[11:13]), int(a[14:16]))
                 alarm = alarm_datetime
