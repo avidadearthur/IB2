@@ -150,7 +150,7 @@ def display_alarm():
                                     set_datetime = strftime('%Y-%m-%d_%H:%M')
                                     set_by = 'Rpi'
                                     make_coffee = 0
-                                    url = 'https://studev.groept.be/api/a21ib2b02/addalarm/{}/{}/{}/{}/NULL/0'.format(
+                                    url = 'https://studev.groept.be/api/a21ib2b02/addalarm/{}/{}/{}/{}/HOT/30'.format(
                                         set_by,
                                         set_datetime,
                                         alarm_dtime,
@@ -361,6 +361,7 @@ if __name__ == "__main__":
             stop_alarm = False
             print("Sending query to database...")
             datetime_alarm = requests.get('https://studev.groept.be/api/a21ib2b02/readnext').json()
+            print(datetime_alarm)
 
             # Duplicate code that will be removed
             if datetime_alarm:
