@@ -1,4 +1,4 @@
-# IB2 - Iot project 
+# IB2 - Iot device
 
 Project done for the class of Engineering Experience II @ Group T - Faculty of Engineering Technology / academic year 2021-22
 Alarm Clock & Coffee machine connected with Raspberry Pi.
