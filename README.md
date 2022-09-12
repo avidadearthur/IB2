@@ -69,6 +69,9 @@ X1       057-040-1      057-040-1             057-040-1    con-panduit   1
 <img src="https://github.com/avidadearthur/IB2/blob/master/images/alarm_IB2_brd.png"></img>
 
 ### Coffee Machine 
+For this part of the project a [Tristar coffee maker](https://www.tradeinn.com/techinn/en/tristar-cm1246-600w-drip-coffee-maker/137743253/p) was used. The ON/OFF switch was controlled with a PWM servo motor and the amount of water in the coffee machine was controlled by a pump. Under the coffee jar there was an NTC resistor to estimate the coffee temperature. All the Sensors and actuators were controlled by a Raspberry Pi that executed the coffee orders comming from a Database. Every order included the datetime info, desired volume of coffee (cl) and desired temperature (hot, medium or cold).
+
+The coffee make module could be controlled either by the alarm clock (described above), or by the Java desktop application explained [here](https://github.com/avidadearthur/iCoffee). 
 
 #### [Functionality demo during test phase](https://www.youtube.com/watch?v=fZlkzTX5OxE)
 #### Partlist:
