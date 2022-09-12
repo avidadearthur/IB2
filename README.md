@@ -73,7 +73,7 @@ For this part of the project a [Tristar coffee maker](https://www.tradeinn.com/t
 
 The coffee make module could be controlled either by the alarm clock (described above), or by the Java desktop application explained [here](https://github.com/avidadearthur/iCoffee). 
 
-#### [Functionality demo during test phase](https://www.youtube.com/watch?v=fZlkzTX5OxE)
+#### [Functionality demo during test phase](https://youtu.be/fZkqSkyJ20Q)
 #### Partlist:
 ```
 Exported from Coffee_IB2.sch at 26/12/2021 11:54
