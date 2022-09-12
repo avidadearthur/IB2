@@ -3,6 +3,17 @@
 Project done for the class of Engineering Experience II @ Group T - Faculty of Engineering Technology / academic year 2021-22
 Alarm Clock & Coffee machine connected with Raspberry Pi.
 
+### Software Contribution:
+* [@avidadearthur](https://github.com/avidadearthur)
+* [@kamielsabo](https://github.com/kamielsabo)
+### Hardware Contribution:
+* [@avidadearthur](https://github.com/avidadearthur)
+* [@kamielsabo](https://github.com/kamielsabo)
+* Tomas Vermeulen
+* Ruben Nuyes
+* Lotte Kesteleyn
+* Aymeric Baume
+
 ## Description
 
 Students typically drink a lot of coffee but preparing it in the morning while your housemates try to start their day in the kitchen can be cumbersome. 
@@ -18,6 +29,7 @@ When in states <code>1</code> and <code>2</code>, the program ran two threads: t
 The alarm clock had a LDR and a NTC sensor that were sampled by the <code>MCP3008</code> ADC converter. When it was too dark, the LDR would trigger LEDs 1,2 and 3 to light up and help the user find the interface buttons. The NTC just measured the temperature around the alarm clock.
 
 If activated, the buzzer would start beeping and only stop when the user pressed RESET.
+#### [Functionality demo during test phase](https://www.youtube.com/watch?v=fZlkzTX5OxE)
 #### Partlist:
 ```
 Exported from Alarm_IB2.sch at 12/21/2021 6:10 PM
@@ -54,6 +66,37 @@ X1       057-040-1      057-040-1             057-040-1    con-panduit   1
 #### Schematic:
 <img src="https://github.com/avidadearthur/IB2/blob/master/images/alarm_IB2_sch.png"></img>
 #### Board:
-<img src="https://github.com/avidadearthur/IB2/blob/master/images/alarm_IB2_brd.png">
-#### Functionality demo during test phase:
-[![thumbnail](https://github.com/avidadearthur/IB2/blob/master/images/alarm_demo_thumbnail.jpg](https://youtu.be/fZlkzTX5OxE)
+<img src="https://github.com/avidadearthur/IB2/blob/master/images/alarm_IB2_brd.png"></img>
+
+### Coffee Machine 
+
+#### [Functionality demo during test phase](https://www.youtube.com/watch?v=fZlkzTX5OxE)
+#### Partlist:
+```
+Exported from Coffee_IB2.sch at 26/12/2021 11:54
+
+EAGLE Version 9.5.2 Copyright (c) 1988-2019 Autodesk, Inc.
+
+Assembly variant: 
+
+Part     Value          Device                Package   Library        Sheet
+
+C3       100nF          C-EUC0805             C0805     rcl            1
+C4       100 nF         C-EUC0805             C0805     rcl            1
+D3                      DIODE-DO-214AC        DO-214AC  diode          1
+IC2      MCP6002        MCP602SN              SO08      linear         1
+PUMP                    M02                   02P       con-amp-quick  1
+Q1       BC817-25SMD    BC817-25SMD           SOT23-BEC transistor-npn 1
+R1       100            R-EU_R0805            R0805     rcl            1
+R3                      V642                  P642      ptc-ntc        1
+R8       10k            R-EU_R0805            R0805     rcl            1
+R9       10k            R-EU_R0805            R0805     rcl            1
+SL2                     M03                   03P       con-amp-quick  1
+SL3                     M02                   02P       con-amp-quick  1
+U2                      MICROCHIP_MCP3008-I-P SO-16     P              1
+X1       057-040-1      057-040-1             057-040-1 con-panduit    1
+```
+#### Schematic:
+<img src="https://github.com/avidadearthur/IB2/blob/master/images/coffee_IB2_sch.png"></img>
+#### Board:
+<img src="https://github.com/avidadearthur/IB2/blob/master/images/coffee_IB2_brd.png"></img>
